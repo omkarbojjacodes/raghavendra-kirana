@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#20291f">
+  <meta name="description" content="Raghavendra Kirana & General Store — everyday groceries and essentials in Ismailkhanpet.">
+  <title>Raghavendra Kirana & General Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="announcement" data-en="Your neighbourhood store, now a little closer." data-te="మీ ఇంటి పక్కనే ఉన్న దుకాణం — ఇప్పుడు మరింత దగ్గరగా.">Your neighbourhood store, now a little closer.</div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Raghavendra Kirana home">
+      <span class="brand-mark">R</span>
+      <span class="brand-copy"><strong>RAGHAVENDRA</strong><small data-en="KIRANA & GENERAL STORE" data-te="కిరాణా & జనరల్ స్టోర్">KIRANA & GENERAL STORE</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#shop" data-en="Shop" data-te="షాప్">Shop</a>
+      <a href="#about" data-en="Our store" data-te="మా దుకాణం">Our store</a>
+      <a href="#contact" data-en="Contact" data-te="సంప్రదించండి">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">తెలుగు</button>
+      <button class="cart-trigger" id="cartTrigger" type="button"><span data-en="Bag" data-te="బ్యాగ్">Bag</span><span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow" data-en="ISMAILKHANPET · SANGAREDDY" data-te="ఇస్మాయిల్‌ఖాన్‌పేట్ · సంగారెడ్డి">ISMAILKHANPET · SANGAREDDY</p>
+        <h1 data-en="Everyday essentials.<br><em>Everyday trust.</em>" data-te="ప్రతిరోజు అవసరాలు.<br><em>ప్రతిరోజు నమ్మకం.</em>">Everyday essentials.<br><em>Everyday trust.</em></h1>
+        <p class="hero-description" data-en="A familiar neighbourhood store for the things your home needs. Browse our catalogue and send your order directly to us." data-te="మీ ఇంటికి అవసరమైన నిత్యావసరాల కోసం మీకు దగ్గరలోని నమ్మకమైన దుకాణం. వస్తువులను ఎంచుకుని మీ ఆర్డర్‌ను మాకు పంపండి.">A familiar neighbourhood store for the things your home needs. Browse our catalogue and send your order directly to us.</p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#shop" data-en="Explore products" data-te="వస్తువులను చూడండి">Explore products <span>↗</span></a>
+          <span class="hero-note" data-en="Pickup · Local delivery on confirmation" data-te="షాప్‌లో తీసుకోవచ్చు · నిర్ధారణ తర్వాత స్థానిక డెలివరీ">Pickup · Local delivery on confirmation</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-circle circle-one"></div><div class="art-circle circle-two"></div>
+        <div class="art-label">RK<span>·</span>01</div>
+        <div class="art-quote" data-en="మన ఊరు. మన షాప్.<br>మన నమ్మకం." data-te="మన ఊరు. మన షాప్.<br>మన నమ్మకం.">మన ఊరు. మన షాప్.<br>మన నమ్మకం.</div>
+        <div class="art-bottom">EST. ISMAILKHANPET</div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div><span class="trust-icon">01</span><span data-en="Everyday groceries" data-te="నిత్యావసర సరుకులు">Everyday groceries</span></div>
+      <div><span class="trust-icon">02</span><span data-en="Simple ordering" data-te="సులభమైన ఆర్డర్">Simple ordering</span></div>
+      <div><span class="trust-icon">03</span><span data-en="Local service" data-te="స్థానిక సేవ">Local service</span></div>
+    </section>
+
+    <section class="shop-section section-wrap" id="shop">
+      <div class="section-heading">
+        <div><p class="eyebrow" data-en="THE DAILY EDIT" data-te="రోజువారీ అవసరాలు">THE DAILY EDIT</p><h2 data-en="Shop essentials" data-te="అవసరమైన వస్తువులు">Shop essentials</h2></div>
+        <p data-en="Choose what you need. We’ll confirm the latest price and availability before accepting your order." data-te="మీకు కావాల్సినవి ఎంచుకోండి. ఆర్డర్‌ను అంగీకరించే ముందు తాజా ధర మరియు స్టాక్‌ను నిర్ధారిస్తాము.">Choose what you need. We’ll confirm the latest price and availability before accepting your order.</p>
+      </div>
+      <div class="shop-toolbar">
+        <div class="filters" id="categoryFilters" aria-label="Product categories"></div>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products…" aria-label="Search products"></label>
+      </div>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+      <p class="catalogue-note" data-en="Prices and stock are confirmed by the shop when you place an order. Product photos are illustrative." data-te="ఆర్డర్ చేసినప్పుడు దుకాణం ధరలు మరియు స్టాక్‌ను నిర్ధారిస్తుంది. ఉత్పత్తి చిత్రాలు సూచన కోసం మాత్రమే.">Prices and stock are confirmed by the shop when you place an order. Product photos are illustrative.</p>
+    </section>
+
+    <section class="promise-section" id="about">
+      <div class="promise-number">RK / 01</div>
+      <div><p class="eyebrow" data-en="A LOCAL PROMISE" data-te="మన స్థానిక నమ్మకం">A LOCAL PROMISE</p>
+        <h2 data-en="Small things make<br><em>a home.</em>" data-te="చిన్న చిన్న అవసరాలే<br><em>ఒక ఇంటిని నడిపిస్తాయి.</em>">Small things make<br><em>a home.</em></h2></div>
+      <p data-en="From kitchen staples to everyday household essentials, Raghavendra Kirana & General Store is here to make daily shopping feel simple. Add items to your bag and message us to confirm your order." data-te="వంటింటి సరుకుల నుంచి రోజువారీ ఇంటి అవసరాల వరకు, రాఘవేంద్ర కిరాణా & జనరల్ స్టోర్ మీ రోజువారీ షాపింగ్‌ను సులభం చేయడానికి ఉంది. వస్తువులను బ్యాగ్‌లో చేర్చి ఆర్డర్ నిర్ధారణ కోసం మాకు మెసేజ్ చేయండి.">From kitchen staples to everyday household essentials, Raghavendra Kirana & General Store is here to make daily shopping feel simple. Add items to your bag and message us to confirm your order.</p>
+    </section>
+
+    <section class="how-section section-wrap">
+      <p class="eyebrow" data-en="HOW IT WORKS" data-te="ఎలా ఆర్డర్ చేయాలి">HOW IT WORKS</p>
+      <div class="how-grid">
+        <article><span>01</span><h3 data-en="Build your bag" data-te="వస్తువులను ఎంచుకోండి">Build your bag</h3><p data-en="Browse the catalogue and add the items you need." data-te="వస్తువులను చూసి మీకు కావాల్సిన వాటిని జోడించండి.">Browse the catalogue and add the items you need.</p></article>
+        <article><span>02</span><h3 data-en="Send on WhatsApp" data-te="వాట్సాప్‌లో పంపండి">Send on WhatsApp</h3><p data-en="Your item list is prepared as a message for our shop." data-te="మీ వస్తువుల జాబితా షాప్‌కు పంపే మెసేజ్‌గా సిద్ధమవుతుంది.">Your item list is prepared as a message for our shop.</p></article>
+        <article><span>03</span><h3 data-en="Confirm & collect" data-te="నిర్ధారించి తీసుకోండి">Confirm & collect</h3><p data-en="We confirm price, stock and pickup or delivery options with you." data-te="ధర, స్టాక్ మరియు పికప్ లేదా డెలివరీ వివరాలను మీతో నిర్ధారిస్తాము.">We confirm price, stock and pickup or delivery options with you.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-main">
+      <div><a class="brand footer-brand" href="#"><span class="brand-mark">R</span><span class="brand-copy"><strong>RAGHAVENDRA</strong><small>KIRANA & GENERAL STORE</small></span></a>
+        <p class="footer-tagline" data-en="మన ఊరు. మన షాప్. మన నమ్మకం." data-te="మన ఊరు. మన షాప్. మన నమ్మకం.">మన ఊరు. మన షాప్. మన నమ్మకం.</p></div>
+      <div class="footer-contact"><p class="eyebrow" data-en="VISIT / CONTACT" data-te="చిరునామా / సంప్రదింపు">VISIT / CONTACT</p>
+        <p data-en="Ismailkhanpet, Sangareddy, Telangana" data-te="ఇస్మాయిల్‌ఖాన్‌పేట్, సంగారెడ్డి, తెలంగాణ">Ismailkhanpet, Sangareddy, Telangana</p>
+        <p><span data-en="Phone:" data-te="ఫోన్:">Phone:</span> <strong>[SHOP PHONE TO BE ADDED]</strong></p>
+        <p><span data-en="Hours:" data-te="సమయం:">Hours:</span> <strong>[SHOP HOURS TO BE ADDED]</strong></p></div>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Raghavendra Kirana & General Store</span><span data-en="Made for our neighbourhood." data-te="మన ఊరి కోసం రూపొందించబడింది.">Made for our neighbourhood.</span></div>
+  </footer>
+
+  <div class="cart-backdrop" id="cartBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-header"><div><p class="eyebrow" data-en="YOUR SELECTION" data-te="మీ ఎంపిక">YOUR SELECTION</p><h2 data-en="Your bag" data-te="మీ బ్యాగ్">Your bag</h2></div><button class="icon-button" id="closeCart" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer"><div class="cart-total"><span data-en="Items" data-te="వస్తువులు">Items</span><strong id="cartTotal">0</strong></div>
+      <p data-en="Final prices and availability will be confirmed by the shop." data-te="చివరి ధరలు మరియు స్టాక్‌ను దుకాణం నిర్ధారిస్తుంది.">Final prices and availability will be confirmed by the shop.</p>
+      <button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp <span>↗</span></button>
+      <button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
