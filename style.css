@@ -35,3 +35,91 @@ footer{background:#20251f;padding:65px clamp(22px,8vw,120px) 22px;position:relat
  .site-header{height:70px;padding:0 15px}.brand-mark{width:37px;height:37px}.brand-copy strong{font-size:10px}.brand-copy small{font-size:7px}.header-actions{gap:10px}.language-toggle{padding:8px 9px}.hero{grid-template-columns:1fr;min-height:0;padding:75px 22px 54px;gap:8px}.hero:before{top:18px;right:22px}.hero:after{left:22px;bottom:17px;font-size:7px}.hero h1{font-size:clamp(54px,13.8vw,88px);line-height:.91}.hero-description{margin:24px 0;font-size:11px}.hero-art{min-height:245px;margin-top:8px}.circle-one{width:205px}.circle-two{width:155px}.art-quote{font-size:27px}.art-label{right:12%;top:5%}.art-bottom{bottom:2%}.trust-strip{padding:15px 18px;gap:8px}.trust-strip>div{font-size:8px;letter-spacing:.06em;gap:7px}.section-wrap{padding:68px 17px}.section-heading{margin-bottom:30px}.section-heading h2{font-size:clamp(42px,11vw,64px)}.section-heading>p{margin-top:17px;font-size:10px}.shop-toolbar{gap:17px}.filters{gap:5px}.filter-button{padding:8px 9px;font-size:8px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 8px}.product-card{min-height:275px;padding:8px}.product-card:nth-child(4n+2){transform:none}.product-card:nth-child(4n+2):hover{transform:translateY(-4px)}.product-visual{height:125px}.product-symbol{font-size:47px}.product-visual:after{width:63px;height:63px}.product-category{margin:15px 0 7px;font-size:7px}.product-card h3{font-size:17px}.product-meta{font-size:8px;min-height:27px}.price-label{font-size:8px}.add-button{width:32px;height:32px}.promise-section{grid-template-columns:1fr;gap:17px;padding:65px 22px 75px}.promise-section h2{font-size:clamp(44px,11vw,68px)}.promise-section>p{font-size:10px;margin:0}.how-section{padding:65px 20px}.how-grid{grid-template-columns:1fr;gap:23px}.how-grid h3{font-size:23px}.footer-main{display:block}.footer-contact{margin-top:35px}.footer-bottom{font-size:7px;letter-spacing:.04em}
 }
 @media(max-width:380px){.brand-copy strong{font-size:9px}.brand-copy small{font-size:6px}.cart-trigger{font-size:10px}.hero h1{font-size:51px}.trust-strip{grid-template-columns:1fr}.trust-strip>div{justify-content:flex-start;padding-left:10%}.product-card{min-height:265px}}
+
+/* =========================================
+   RAGHAVENDRA KIRANA
+   EXPERIMENTAL MOTION DESIGN — V1
+========================================= */
+
+/* Smooth page behaviour */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Main product card reveal */
+.product-card {
+  animation: editorialReveal 0.8s cubic-bezier(.2,.7,.2,1) both;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Stagger product entrances */
+.product-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.product-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.product-card:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+/* Experimental reveal */
+@keyframes editorialReveal {
+  from {
+    opacity: 0;
+    transform: translateY(35px) rotate(1deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+/* Product hover interaction */
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.09);
+  }
+}
+
+/* Add button interaction */
+.add-button {
+  transition:
+    transform 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.add-button:active {
+  transform: scale(0.82) rotate(-8deg);
+  border-radius: 50%;
+}
+
+/* Cart count interaction */
+#cartCount {
+  transition: transform 0.25s ease;
+}
+
+/* Smooth button transitions */
+button {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
