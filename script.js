@@ -1,42 +1,33 @@
 
 /* Raghavendra Kirana & General Store
-   Configure the WhatsApp number below before publishing.
-   India format: 91XXXXXXXXXX (no + or spaces).
+   First product: GOLKI COVERS
+   WhatsApp number is formatted with India's country code.
 */
 
-const SHOP_WHATSAPP_NUMBER = "9182368811";
+// Your supplied 10-digit number with India's country code.
+const SHOP_WHATSAPP_NUMBER = "919182368811";
 
 const products = [
-  {id:"rice", name:{en:"Rice",te:"బియ్యం"}, category:"Grains", categoryTe:"ధాన్యాలు", symbol:"రి", detail:{en:"Rice varieties",te:"వివిధ రకాల బియ్యం"}},
-  {id:"idly-ravva", name:{en:"Idly Ravva",te:"ఇడ్లీ రవ్వ"}, category:"Grains", categoryTe:"ధాన్యాలు", symbol:"ఇ", detail:{en:"Kitchen staple",te:"వంటింటి అవసరం"}},
-  {id:"kandhi-pappu", name:{en:"Kandhi Pappu",te:"కందిపప్పు"}, category:"Pulses", categoryTe:"పప్పులు", symbol:"క", detail:{en:"Toor dal",te:"కందిపప్పు"}},
-  {id:"erra-pappu", name:{en:"Erra Pappu",te:"ఎర్ర పప్పు"}, category:"Pulses", categoryTe:"పప్పులు", symbol:"ఎ", detail:{en:"Red lentils",te:"ఎర్ర పప్పు"}},
-  {id:"jeera", name:{en:"Jeera",te:"జీలకర్ర"}, category:"Spices", categoryTe:"మసాలాలు", symbol:"జీ", detail:{en:"Everyday spice",te:"రోజువారీ మసాలా"}},
-  {id:"lavangam", name:{en:"Lavangam",te:"లవంగాలు"}, category:"Spices", categoryTe:"మసాలాలు", symbol:"ల", detail:{en:"Whole cloves",te:"మొత్తం లవంగాలు"}},
-  {id:"sugar", name:{en:"Sugar",te:"చక్కెర"}, category:"Essentials", categoryTe:"నిత్యావసరాలు", symbol:"చ", detail:{en:"Daily essential",te:"రోజువారీ అవసరం"}},
-  {id:"suji", name:{en:"Suji",te:"సూజీ"}, category:"Essentials", categoryTe:"నిత్యావసరాలు", symbol:"సూ", detail:{en:"Semolina",te:"రవ్వ"}},
-  {id:"cooking-oil", name:{en:"Cooking Oil",te:"వంట నూనె"}, category:"Essentials", categoryTe:"నిత్యావసరాలు", symbol:"నూ", detail:{en:"Cooking essential",te:"వంటకు అవసరం"}},
-  {id:"milk", name:{en:"Milk",te:"పాలు"}, category:"Fresh", categoryTe:"తాజా సరుకులు", symbol:"పా", detail:{en:"Local availability",te:"స్థానికంగా లభ్యత"}},
-  {id:"curd", name:{en:"Curd",te:"పెరుగు"}, category:"Fresh", categoryTe:"తాజా సరుకులు", symbol:"పె", detail:{en:"Local availability",te:"స్థానికంగా లభ్యత"}},
-
-  {id:"eggs", name:{en:"Eggs",te:"గుడ్లు"}, category:"Fresh", categoryTe:"తాజా సరుకులు", symbol:"గు", detail:{en:"Price per piece",te:"ఒక్క గుడ్డు ధర"}, price:8, unit:"piece"},
-
-  {id:"thums-up", name:{en:"Thums Up",te:"థమ్స్ అప్"}, category:"Beverages", categoryTe:"పానీయాలు", symbol:"T", detail:{en:"Cold drink",te:"శీతల పానీయం"}, price:20},
-
-  {id:"soap", name:{en:"Bathing Soap",te:"స్నానపు సబ్బు"}, category:"Home", categoryTe:"గృహోపయోగం", symbol:"స", detail:{en:"Personal care",te:"వ్యక్తిగత సంరక్షణ"}},
-  {id:"dettol-soap", name:{en:"Dettol Soap",te:"డెట్టాల్ సబ్బు"}, category:"Home", categoryTe:"గృహోపయోగం", symbol:"D", detail:{en:"Personal care",te:"వ్యక్తిగత సంరక్షణ"}, price:10},
-  {id:"household", name:{en:"Household Essentials",te:"ఇంటి అవసరాలు"}, category:"Home", categoryTe:"గృహోపయోగం", symbol:"ఇం", detail:{en:"Daily home needs",te:"రోజువారీ ఇంటి అవసరాలు"}}
+  {
+    id: "golki-covers",
+    name: {
+      en: "GOLKI COVERS",
+      te: "గోల్కి కవర్లు"
+    },
+    category: "Accessories",
+    categoryTe: "మొబైల్ ఉపకరణాలు",
+    symbol: "G",
+    detail: {
+      en: "Black Silicone Back Cover for Nothing Phone 4b 5G",
+      te: "Nothing Phone 4b 5G కోసం బ్లాక్ సిలికాన్ బ్యాక్ కవర్"
+    },
+    price: 219
+  }
 ];
 
 const categories = [
-  {id:"All",en:"All items",te:"అన్ని"},
-  {id:"Grains",en:"Grains",te:"ధాన్యాలు"},
-  {id:"Pulses",en:"Pulses",te:"పప్పులు"},
-  {id:"Spices",en:"Spices",te:"మసాలాలు"},
-  {id:"Essentials",en:"Essentials",te:"నిత్యావసరాలు"},
-  {id:"Beverages",en:"Beverages",te:"పానీయాలు"},
-  {id:"Fresh",en:"Fresh",te:"తాజా సరుకులు"},
-  {id:"Home",en:"Home",te:"గృహోపయోగం"}
+  { id: "All", en: "All products", te: "అన్ని ఉత్పత్తులు" },
+  { id: "Accessories", en: "Mobile Accessories", te: "మొబైల్ ఉపకరణాలు" }
 ];
 
 let language = "en";
@@ -64,7 +55,7 @@ function renderLanguage() {
     language === "en" ? "తెలుగు" : "English";
 
   $("searchInput").placeholder =
-    t("Search products…", "వస్తువులను వెతకండి…");
+    t("Search products…", "ఉత్పత్తులను వెతకండి…");
 
   renderCategories();
   renderProducts();
@@ -97,7 +88,8 @@ function renderProducts() {
       !query ||
       p.name.en.toLowerCase().includes(query) ||
       p.name.te.includes(query) ||
-      p.category.toLowerCase().includes(query);
+      p.detail.en.toLowerCase().includes(query) ||
+      p.detail.te.includes(query);
 
     return matchesCategory && matchesQuery;
   });
@@ -116,27 +108,26 @@ function renderProducts() {
         <h3>${productName(p)}</h3>
 
         <p class="product-meta">
-          ${p.detail[language]} ·
-          ${t("Stock confirmation required", "స్టాక్ నిర్ధారణ అవసరం")}
+          ${p.detail[language]}
         </p>
 
         <div class="product-bottom">
-          <span class="price-label">
-            ${p.price != null
-              ? `₹${p.price}${p.unit ? " / " + p.unit : ""}`
-              : t("Price on request", "ధర అడగండి")}
-          </span>
+          <span class="price-label">₹${p.price}</span>
 
           <button class="add-button"
             type="button"
             data-add="${p.id}"
             aria-label="${t("Add", "జోడించు")} ${productName(p)}">+</button>
         </div>
+
+        <p class="product-meta">
+          ${t("Delivery charges extra", "డెలివరీ ఛార్జీలు అదనం")}
+        </p>
       </article>
     `).join("")
     : `<div class="empty-results">
         ${t("No products found. Try another search.",
-          "వస్తువులు కనిపించలేదు. మరోసారి వెతకండి.")}
+          "ఉత్పత్తులు కనిపించలేదు. మరోసారి వెతకండి.")}
       </div>`;
 
   $("productGrid").querySelectorAll("[data-add]").forEach(btn => {
@@ -177,12 +168,7 @@ function renderCart() {
           <div class="cart-row">
             <div>
               <h3>${productName(p)}</h3>
-              <small>
-                ${p.price != null
-                  ? `₹${p.price}${p.unit ? " / " + p.unit : ""}`
-                  : t("Price and stock to be confirmed",
-                      "ధర మరియు స్టాక్ నిర్ధారించాలి")}
-              </small>
+              <small>₹${p.price} × ${qty} = ₹${p.price * qty}</small>
             </div>
 
             <div class="quantity-control">
@@ -194,11 +180,15 @@ function renderCart() {
             </div>
           </div>
         `;
-      }).join("")
+      }).join("") +
+      `<p class="product-meta">
+        ${t("Delivery charges will be calculated separately.",
+          "డెలివరీ ఛార్జీలు విడిగా లెక్కించబడతాయి.")}
+      </p>`
     : `<div class="cart-empty">
         ${t("Your bag is empty.", "మీ బ్యాగ్ ఖాళీగా ఉంది.")}<br>
-        ${t("Add a few everyday essentials to get started.",
-          "మొదలుపెట్టడానికి కొన్ని వస్తువులను జోడించండి.")}
+        ${t("Add GOLKI COVERS to get started.",
+          "ప్రారంభించడానికి గోల్కి కవర్లను జోడించండి.")}
       </div>`;
 
   $("cartItems").querySelectorAll("[data-qty]").forEach(btn => {
@@ -223,21 +213,33 @@ function closeCart() {
 }
 
 function buildOrderMessage() {
-  const lines = Object.entries(cart).map(([id, qty]) => {
+  const entries = Object.entries(cart);
+
+  const lines = entries.map(([id, qty]) => {
     const p = products.find(x => x.id === id);
-    return `• ${p.name.en} / ${p.name.te} × ${qty}`;
+    return `• ${p.name.en} / ${p.name.te} × ${qty} = ₹${p.price * qty}`;
   });
+
+  const subtotal = entries.reduce((sum, [id, qty]) => {
+    const p = products.find(x => x.id === id);
+    return sum + p.price * qty;
+  }, 0);
 
   return `Hello Raghavendra Kirana & General Store,
 
-I would like to place an order:
+I would like to order:
+
 ${lines.join("\n")}
 
-Please confirm current prices, stock availability and the total amount.
+Subtotal: ₹${subtotal}
+Delivery charges: Extra (to be confirmed)
+Final total: To be confirmed by the shop.
 
-Order preference: [Pickup / Local delivery]
+Please confirm product availability and delivery charges before payment.
+
+Order preference: [Pickup / Delivery]
 Customer name: [Your name]
-Delivery address (if required): [Your address]
+Delivery address: [Your address]
 
 Thank you.`;
 }
@@ -248,24 +250,11 @@ async function checkout() {
   const message = buildOrderMessage();
   const number = SHOP_WHATSAPP_NUMBER.replace(/\D/g, "");
 
-  if (
-    !/^\d{10,15}$/.test(number) ||
-    number === "91XXXXXXXXXX".replace(/\D/g, "")
-  ) {
-    try {
-      await navigator.clipboard.writeText(message);
-
-      showToast(t(
-        "Order message copied. Add the shop WhatsApp number in script.js to open WhatsApp.",
-        "ఆర్డర్ మెసేజ్ కాపీ అయింది. వాట్సాప్ తెరవడానికి script.js లో షాప్ నంబర్ జోడించండి."
-      ));
-    } catch {
-      window.prompt(
-        t("Copy your order message:", "మీ ఆర్డర్ మెసేజ్‌ను కాపీ చేయండి:"),
-        message
-      );
-    }
-
+  if (!/^91\d{10}$/.test(number)) {
+    showToast(t(
+      "Please check the WhatsApp number in script.js.",
+      "script.js లో వాట్సాప్ నంబర్‌ను తనిఖీ చేయండి."
+    ));
     return;
   }
 
