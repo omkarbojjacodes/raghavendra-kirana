@@ -59,6 +59,59 @@ function renderProducts() {
     </article>`).join(""):`<div class="empty-results">${esc(t("No products found. Try another search.","ఉత్పత్తులు కనిపించలేదు. మరోసారి వెతకండి."))}</div>`;
   $("productGrid").querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();addToCart(b.dataset.add);}));
 }
+function productShareUrl(product) {
+  const url = new URL(window.location.href);
+  url.hash = `product-${product.id}`;
+  return url.toString();
+}
+function productShareText(product) {
+  return `${product.name} — ${money(product.price)}\nRaghavendra Kirana & General Store\n${productShareUrl(product)}`;
+}
+async function shareActiveProduct() {
+  const product = products.find(p => p.id === activeProductId);
+  if (!product) return;
+  const url = productShareUrl(product);
+  const title = `${product.name} | Raghavendra Kirana`;
+  const text = `${product.name} — ${money(product.price)}\nRaghavendra Kirana & General Store`;
+  if (navigator.share) {
+    try {
+      await navigator.share({title, text, url});
+    } catch (error) {
+      if (error && error.name !== "AbortError") {
+        try {
+          await copyProductLink(url);
+        } catch (_) {
+          toast(t("Couldn't open sharing. Please copy the product link from your browser.","షేర్ చేయలేకపోయాం. బ్రౌజర్ నుంచి ఉత్పత్తి లింక్‌ను కాపీ చేయండి."));
+        }
+      }
+    }
+  } else {
+    try {
+      await copyProductLink(url);
+    } catch (_) {
+      const waUrl = `https://wa.me/?text=${encodeURIComponent(productShareText(product))}`;
+      window.open(waUrl, "_blank", "noopener");
+    }
+  }
+}
+async function copyProductLink(url) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(url);
+    toast(t("Product link copied. Share it anywhere!","ఉత్పత్తి లింక్ కాపీ అయింది. ఎక్కడైనా షేర్ చేయండి!"));
+    return;
+  }
+  const field = document.createElement("textarea");
+  field.value = url;
+  field.setAttribute("readonly", "");
+  field.style.position = "fixed";
+  field.style.opacity = "0";
+  document.body.appendChild(field);
+  field.select();
+  const copied = document.execCommand("copy");
+  field.remove();
+  if (!copied) throw new Error("Copy failed");
+  toast(t("Product link copied. Share it anywhere!","ఉత్పత్తి లింక్ కాపీ అయింది. ఎక్కడైనా షేర్ చేయండి!"));
+}
 function renderDetails(p) {
   activeProductId=p.id;
   $("detailMainImage").src=p.image_url||"";
@@ -106,6 +159,7 @@ function changeQty(id,delta) {
   renderCart();
 }
 $("detailAddToBag").addEventListener("click",()=>{if(activeProductId){addToCart(activeProductId);openCart();}});
+$("shareProductButton").addEventListener("click",shareActiveProduct);
 function renderCart() {
   const entries=Object.entries(cart),count=entries.reduce((s,[,q])=>s+q,0);
   const subtotal=entries.reduce((s,[id,q])=>{const p=products.find(x=>x.id===id);return s+(p?Number(p.price)*q:0);},0);
