@@ -29,3 +29,104 @@ button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{col
 @media(max-width:900px){.market-header{grid-template-columns:180px minmax(150px,1fr) 160px;gap:15px}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.market-intro{padding-left:6%;padding-right:6%}}
 @media(max-width:650px){.delivery-announcement{padding:8px 4%;font-size:10px;gap:7px}.topline{padding:0 4%;font-size:8px;letter-spacing:.7px}.topline span:nth-child(2){display:none}.market-header{min-height:unset;padding:12px 4%;grid-template-columns:1fr auto;gap:12px}.brand-symbol{width:34px;height:34px;font-size:19px}.brand-name{font-size:11px}.brand-name span{font-size:7px}.header-actions{gap:8px}.language-toggle{padding:7px;font-size:10px}.cart-trigger{gap:5px;font-size:11px}.bag-icon{font-size:18px}.bag-label{display:none}.market-search{grid-column:1/-1;grid-row:2;height:41px}.market-search kbd{display:none}.market-intro{min-height:unset;padding:38px 6% 30px;display:block}.market-intro h1{font-size:54px;letter-spacing:-2.8px}.intro-aside{max-width:100%;margin-top:22px}.intro-aside p{max-width:320px;font-size:11px}.shop-section{width:90%;padding:34px 0 60px}.catalogue-topline h2{font-size:24px}.catalogue-label{font-size:8px}.shop-toolbar{align-items:flex-start;flex-direction:column;gap:0;padding:7px 0}.filters{width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter-button{white-space:nowrap;padding:8px 11px;font-size:10px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 11px}.product-visual{height:clamp(145px,48vw,230px)}.product-card{padding-bottom:12px}.product-category{margin-top:11px;font-size:7px}.product-card h3{min-height:38px;font-size:13px}.product-meta{font-size:9px}.price-label{font-size:15px}.add-button{width:29px;height:29px}.view-details{font-size:8px}.catalogue-footer{font-size:7px;letter-spacing:.8px}.product-detail-section{width:90%;padding:20px 0 55px}.product-detail-grid{grid-template-columns:1fr;gap:25px}.detail-main-image{height:95vw;min-height:300px;max-height:440px}.detail-thumbnails{grid-template-columns:repeat(4,65px)}.detail-thumbnails button{height:65px}.product-detail-info h1{font-size:37px}.market-footer{padding:22px 5%;align-items:flex-start;flex-direction:column;gap:14px}.market-footer>span{font-size:7px}.detail-action-row{grid-template-columns:1fr 1fr}.cart-drawer{padding:22px}}
 @media(max-width:370px){.product-grid{gap:17px 8px}.product-card h3{font-size:12px}.detail-action-row{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------
+   SUBTLE, BALANCED MOTION — Raghavendra Marketplace
+   CSS-only enhancements; no changes to Supabase or script.js.
+   --------------------------------------------------------- */
+:root {
+  --motion-fast: 180ms;
+  --motion-medium: 420ms;
+  --motion-slow: 650ms;
+  --motion-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes softFadeUp {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes softFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes announcementIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Page entrance */
+.delivery-announcement { animation: announcementIn 520ms var(--motion-ease) both; }
+.topline { animation: softFadeIn 520ms ease both; }
+.market-header { animation: softFadeIn 600ms ease both; }
+.market-intro > div:first-child { animation: softFadeUp 700ms 80ms var(--motion-ease) both; }
+.intro-aside { animation: softFadeUp 700ms 180ms var(--motion-ease) both; }
+.catalogue-topline { animation: softFadeUp 600ms 160ms var(--motion-ease) both; }
+
+/* Product cards also animate when dynamically rendered from Supabase. */
+.product-card {
+  animation: softFadeUp 560ms var(--motion-ease) both;
+  transition: transform var(--motion-medium) var(--motion-ease),
+              opacity var(--motion-medium) ease;
+  will-change: transform;
+}
+.product-card:nth-child(1) { animation-delay: 40ms; }
+.product-card:nth-child(2) { animation-delay: 80ms; }
+.product-card:nth-child(3) { animation-delay: 120ms; }
+.product-card:nth-child(4) { animation-delay: 160ms; }
+.product-card:nth-child(5) { animation-delay: 200ms; }
+.product-card:nth-child(6) { animation-delay: 240ms; }
+.product-card:nth-child(7) { animation-delay: 280ms; }
+.product-card:nth-child(8) { animation-delay: 320ms; }
+.product-card:nth-child(n+9) { animation-delay: 360ms; }
+
+.product-visual { overflow: hidden; }
+.product-visual img {
+  transition: transform 650ms var(--motion-ease), opacity 300ms ease;
+}
+.product-card:hover .product-visual img,
+.product-card:focus-within .product-visual img {
+  transform: scale(1.035);
+}
+.product-card:hover,
+.product-card:focus-within { transform: translateY(-4px); }
+
+/* Small, tactile interactions */
+button, .filter-button, .market-search, .detail-thumbnails button {
+  transition: color var(--motion-fast) ease,
+              background-color var(--motion-fast) ease,
+              border-color var(--motion-fast) ease,
+              box-shadow var(--motion-fast) ease,
+              transform var(--motion-fast) var(--motion-ease);
+}
+button:active { transform: scale(.975); }
+.add-button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(23,24,21,.13); }
+.filter-button:active { transform: scale(.97); }
+.market-search:focus-within { border-color: #aeb39f; box-shadow: 0 0 0 3px rgba(174,179,159,.14); }
+.language-toggle:hover, .icon-button:hover, .detail-thumbnails button:hover { border-color: #aeb39f; }
+
+/* Product detail and cart transitions */
+.product-detail-section:not([hidden]) { animation: softFadeUp 460ms var(--motion-ease) both; }
+.detail-main-image img { transition: transform 600ms var(--motion-ease); }
+.detail-main-image:hover img { transform: scale(1.025); }
+.cart-backdrop { transition: opacity 280ms ease, visibility 280ms ease; }
+.cart-drawer { transition: transform 360ms var(--motion-ease); }
+.cart-row { animation: softFadeUp 300ms var(--motion-ease) both; }
+.toast { transition: opacity 220ms ease, visibility 220ms ease, transform 260ms var(--motion-ease); }
+
+/* Keep motion comfortable on smaller screens and for reduced-motion users. */
+@media (max-width: 650px) {
+  .product-card:hover,
+  .product-card:focus-within { transform: translateY(-2px); }
+  .product-card:hover .product-visual img { transform: scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
