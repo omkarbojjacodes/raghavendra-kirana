@@ -1,134 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f4ec">
-  <meta name="description" content="Raghavendra Kirana & General Store — browse products in Ismailkhanpet.">
-  <title>Raghavendra Kirana & General Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f2"><meta name="description" content="Discover and shop products at Raghavendra.">
+<title>Raghavendra — Online Shopping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="announcement" data-en="Your neighbourhood store, now a little closer." data-te="మీ ఇంటి పక్కనే ఉన్న దుకాణం — ఇప్పుడు మరింత దగ్గరగా.">Your neighbourhood store, now a little closer.</div>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Raghavendra Kirana home">
-      <span class="brand-mark">R</span>
-      <span class="brand-copy"><strong>RAGHAVENDRA</strong><small data-en="KIRANA & GENERAL STORE" data-te="కిరాణా & జనరల్ స్టోర్">KIRANA & GENERAL STORE</small></span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#shop" data-en="Shop" data-te="షాప్">Shop</a>
-      <a href="#about" data-en="Our store" data-te="మా దుకాణం">Our store</a>
-      <a href="#contact" data-en="Contact" data-te="సంప్రదించండి">Contact</a>
-    </nav>
-    <div class="header-actions">
-      <button class="language-toggle" id="languageToggle" type="button">తెలుగు</button>
-      <button class="cart-trigger" id="cartTrigger" type="button"><span data-en="Bag" data-te="బ్యాగ్">Bag</span><span class="cart-count" id="cartCount">0</span></button>
-    </div>
-  </header>
-
-  <main id="home">
-    <div id="homePage">
-      <section class="hero">
-        <div class="hero-content">
-          <p class="eyebrow" data-en="ISMAILKHANPET · SANGAREDDY" data-te="ఇస్మాయిల్‌ఖాన్‌పేట్ · సంగారెడ్డి">ISMAILKHANPET · SANGAREDDY</p>
-          <h1 data-en="Everyday essentials.<br><em>Everyday trust.</em>" data-te="ప్రతిరోజు అవసరాలు.<br><em>ప్రతిరోజు నమ్మకం.</em>">Everyday essentials.<br><em>Everyday trust.</em></h1>
-          <p class="hero-description" data-en="A familiar neighbourhood store for the things your home needs. Browse our catalogue and send your order directly to us." data-te="మీ ఇంటికి అవసరమైన నిత్యావసరాల కోసం మీకు దగ్గరలోని నమ్మకమైన దుకాణం. వస్తువులను ఎంచుకుని మీ ఆర్డర్‌ను మాకు పంపండి.">A familiar neighbourhood store for the things your home needs. Browse our catalogue and send your order directly to us.</p>
-          <div class="hero-actions">
-            <a class="button button-light" href="#shop"><span data-en="Explore products" data-te="వస్తువులను చూడండి">Explore products</span><span>↗</span></a>
-            <span class="hero-note" data-en="Pickup · Delivery on confirmation" data-te="షాప్‌లో తీసుకోవచ్చు · నిర్ధారణ తర్వాత డెలివరీ">Pickup · Delivery on confirmation</span>
-          </div>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="art-circle circle-one"></div><div class="art-circle circle-two"></div>
-          <div class="art-label">RK<span>·</span>01</div>
-          <div class="art-quote">మన ఊరు. మన షాప్.<br>మన నమ్మకం.</div>
-          <div class="art-bottom">EST. ISMAILKHANPET</div>
-        </div>
-      </section>
-
-      <section class="trust-strip">
-        <div><span class="trust-icon">01</span><span data-en="Everyday products" data-te="రోజువారీ ఉత్పత్తులు">Everyday products</span></div>
-        <div><span class="trust-icon">02</span><span data-en="Simple ordering" data-te="సులభమైన ఆర్డర్">Simple ordering</span></div>
-        <div><span class="trust-icon">03</span><span data-en="Local service" data-te="స్థానిక సేవ">Local service</span></div>
-      </section>
-
-      <section class="shop-section section-wrap" id="shop">
-        <div class="section-heading">
-          <div><p class="eyebrow" data-en="THE DAILY EDIT" data-te="రోజువారీ అవసరాలు">THE DAILY EDIT</p><h2 data-en="Shop products" data-te="ఉత్పత్తులను కొనండి">Shop products</h2></div>
-          <p data-en="Explore available products. We’ll confirm price and availability before accepting your order." data-te="మా ఉత్పత్తులను చూడండి. ఆర్డర్‌ను అంగీకరించే ముందు ధర మరియు స్టాక్‌ను నిర్ధారిస్తాము.">Explore available products. We’ll confirm price and availability before accepting your order.</p>
-        </div>
-        <div class="shop-toolbar">
-          <div class="filters" id="categoryFilters" aria-label="Product categories"></div>
-          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products…" aria-label="Search products"></label>
-        </div>
-        <div class="catalogue-status" id="catalogueStatus" role="status"></div>
-        <div class="product-grid" id="productGrid" aria-live="polite"></div>
-        <p class="catalogue-note" data-en="Prices and stock are confirmed by the shop. Delivery charges are extra." data-te="ధరలు మరియు స్టాక్‌ను దుకాణం నిర్ధారిస్తుంది. డెలివరీ ఛార్జీలు అదనం.">Prices and stock are confirmed by the shop. Delivery charges are extra.</p>
-      </section>
-
-      <section class="promise-section" id="about">
-        <div class="promise-number">RK / 01</div>
-        <div><p class="eyebrow" data-en="A LOCAL PROMISE" data-te="మన స్థానిక నమ్మకం">A LOCAL PROMISE</p><h2 data-en="Small things make<br><em>a home.</em>" data-te="చిన్న చిన్న అవసరాలే<br><em>ఒక ఇంటిని నడిపిస్తాయి.</em>">Small things make<br><em>a home.</em></h2></div>
-        <p data-en="Raghavendra Kirana & General Store is here to make daily shopping simple. Browse products, add them to your bag and message us to confirm your order." data-te="రాఘవేంద్ర కిరాణా & జనరల్ స్టోర్ మీ షాపింగ్‌ను సులభం చేయడానికి ఉంది. వస్తువులను ఎంచుకుని ఆర్డర్ నిర్ధారణ కోసం మాకు మెసేజ్ చేయండి.">Raghavendra Kirana & General Store is here to make daily shopping simple. Browse products, add them to your bag and message us to confirm your order.</p>
-      </section>
-
-      <section class="how-section section-wrap">
-        <p class="eyebrow" data-en="HOW IT WORKS" data-te="ఎలా ఆర్డర్ చేయాలి">HOW IT WORKS</p>
-        <div class="how-grid">
-          <article><span>01</span><h3 data-en="Explore products" data-te="ఉత్పత్తులను చూడండి">Explore products</h3><p data-en="Open a product to see its information and price." data-te="ఉత్పత్తి వివరాలు మరియు ధరను చూడండి.">Open a product to see its information and price.</p></article>
-          <article><span>02</span><h3 data-en="Add to your bag" data-te="బ్యాగ్‌లో జోడించండి">Add to your bag</h3><p data-en="Choose the quantity and prepare your order." data-te="కావాల్సిన సంఖ్యను ఎంచుకుని ఆర్డర్ సిద్ధం చేయండి.">Choose the quantity and prepare your order.</p></article>
-          <article><span>03</span><h3 data-en="Confirm on WhatsApp" data-te="వాట్సాప్‌లో నిర్ధారించండి">Confirm on WhatsApp</h3><p data-en="We confirm availability, delivery charges and payment details." data-te="స్టాక్, డెలివరీ ఛార్జీలు మరియు చెల్లింపు వివరాలను నిర్ధారిస్తాము.">We confirm availability, delivery charges and payment details.</p></article>
-        </div>
-      </section>
-    </div>
-
-    <section class="product-detail-section section-wrap" id="productDetails" hidden>
-      <button class="back-button" id="backToShop" type="button">← <span data-en="Back to shop" data-te="షాప్‌కు తిరిగి వెళ్లండి">Back to shop</span></button>
-      <div class="product-detail-grid">
-        <div class="detail-gallery">
-          <div class="detail-main-image"><img id="detailMainImage" src="" alt=""></div>
-          <div class="detail-thumbnails" id="detailThumbnails"></div>
-        </div>
-        <div class="product-detail-info">
-          <p class="eyebrow" id="detailEyebrow">PRODUCT</p>
-          <h1 id="detailName"></h1>
-          <p class="product-detail-description" id="detailDescription"></p>
-          <h2 class="detail-price" id="detailPrice"></h2>
-          <p class="detail-delivery" data-en="Delivery charges are extra and will be confirmed separately." data-te="డెలివరీ ఛార్జీలు అదనం. వాటిని విడిగా నిర్ధారిస్తాము.">Delivery charges are extra and will be confirmed separately.</p>
-          <div class="detail-divider"></div>
-          <h3 data-en="Product information" data-te="ఉత్పత్తి వివరాలు">Product information</h3>
-          <div class="detail-specifications" id="detailSpecifications"></div>
-          <p class="detail-stock-note" id="detailStock"></p>
-          <div class="detail-action-row">
-            <button class="button button-dark detail-add-button" id="detailAddToBag" type="button"><span id="detailAddLabel">Add to Bag</span></button>
-            <button class="button share-button" id="shareProductButton" type="button"><span aria-hidden="true">↗</span><span data-en="Share product" data-te="ఉత్పత్తిని షేర్ చేయండి">Share product</span></button>
-          </div>
-          <p class="detail-payment-note" data-en="Your order is confirmed only after the shop verifies availability, delivery charges and payment." data-te="స్టాక్, డెలివరీ ఛార్జీలు మరియు చెల్లింపును షాప్ నిర్ధారించిన తర్వాతే మీ ఆర్డర్ ఖరారు అవుతుంది.">Your order is confirmed only after the shop verifies availability, delivery charges and payment.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer id="contact">
-    <div class="footer-main">
-      <div><a class="brand footer-brand" href="#home"><span class="brand-mark">R</span><span class="brand-copy"><strong>RAGHAVENDRA</strong><small>KIRANA & GENERAL STORE</small></span></a><p class="footer-tagline">మన ఊరు. మన షాప్. మన నమ్మకం.</p></div>
-      <div class="footer-contact"><p class="eyebrow" data-en="VISIT / CONTACT" data-te="చిరునామా / సంప్రదింపు">VISIT / CONTACT</p><p>Ismailkhanpet, Sangareddy, Telangana</p><p><span data-en="Phone:" data-te="ఫోన్:">Phone:</span> <strong>[SHOP PHONE TO BE ADDED]</strong></p><p><span data-en="Hours:" data-te="సమయం:">Hours:</span> <strong>[SHOP HOURS TO BE ADDED]</strong></p></div>
-    </div>
-    <div class="footer-bottom"><span>© <span id="year"></span> Raghavendra Kirana & General Store</span><span data-en="Made for our neighbourhood." data-te="మన ఊరి కోసం రూపొందించబడింది.">Made for our neighbourhood.</span></div>
-  </footer>
-
-  <div class="cart-backdrop" id="cartBackdrop"></div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
-    <div class="cart-header"><div><p class="eyebrow" data-en="YOUR SELECTION" data-te="మీ ఎంపిక">YOUR SELECTION</p><h2 data-en="Your bag" data-te="మీ బ్యాగ్">Your bag</h2></div><button class="icon-button" id="closeCart" type="button" aria-label="Close cart">×</button></div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer"><div class="cart-total"><span data-en="Subtotal" data-te="మొత్తం">Subtotal</span><strong id="cartTotal">₹0</strong></div><p data-en="Delivery charges are extra. Final amount will be confirmed by the shop." data-te="డెలివరీ ఛార్జీలు అదనం. చివరి మొత్తాన్ని దుకాణం నిర్ధారిస్తుంది.">Delivery charges are extra. Final amount will be confirmed by the shop.</p><button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled><span data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp</span><span>↗</span></button><button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button></div>
-  </aside>
-  <div class="toast" id="toast" role="status"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+<div class="topline"><span>NEW ARRIVALS</span><span>Explore the latest products</span><span>SHOP ONLINE ↗</span></div>
+<header class="market-header">
+<a class="brand" href="#home" aria-label="Raghavendra home"><span class="brand-symbol">R.</span><span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span></a>
+<label class="market-search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products, brands and more…" aria-label="Search products"><kbd>⌘ K</kbd></label>
+<div class="header-actions"><button class="language-toggle" id="languageToggle" type="button">తెలుగు</button><button class="cart-trigger" id="cartTrigger" type="button"><span class="bag-icon">▢</span><span class="bag-label" data-en="Bag" data-te="బ్యాగ్">Bag</span><span class="cart-count" id="cartCount">0</span></button></div>
+</header>
+<main id="home">
+<div id="homePage">
+<section class="market-intro"><div><p class="eyebrow">CURATED FOR EVERYDAY</p><h1>Find your<br><span>next favourite.</span></h1></div><div class="intro-aside"><span class="intro-index">01 / DISCOVER</span><p>Explore products selected for everyday life. Find what you need, compare details and shop with ease.</p></div></section>
+<section class="shop-section" id="shop">
+<div class="catalogue-topline"><div><p class="eyebrow">THE COLLECTION</p><h2 data-en="Explore products" data-te="ఉత్పత్తులను చూడండి">Explore products</h2></div><span class="catalogue-label">PRODUCTS / 001—∞</span></div>
+<div class="shop-toolbar"><div class="filters" id="categoryFilters" aria-label="Product categories"></div></div>
+<div class="catalogue-status" id="catalogueStatus" role="status"></div><div class="product-grid" id="productGrid" aria-live="polite"></div>
+<div class="catalogue-footer"><span>END OF CURRENT COLLECTION</span><span>MORE PRODUCTS ADDED REGULARLY ↗</span></div>
+</section></div>
+<section class="product-detail-section" id="productDetails" hidden>
+<button class="back-button" id="backToShop" type="button">← <span data-en="All products" data-te="అన్ని ఉత్పత్తులు">All products</span></button>
+<div class="product-detail-grid"><div class="detail-gallery"><div class="detail-main-image"><img id="detailMainImage" src="" alt=""></div><div class="detail-thumbnails" id="detailThumbnails"></div></div>
+<div class="product-detail-info"><p class="eyebrow" id="detailEyebrow">PRODUCT DETAILS</p><h1 id="detailName"></h1><p class="product-detail-description" id="detailDescription"></p><h2 class="detail-price" id="detailPrice"></h2>
+<p class="detail-delivery">Delivery charges, if applicable, are confirmed separately.</p><div class="detail-divider"></div><div class="detail-section-heading"><h3 data-en="Product information" data-te="ఉత్పత్తి వివరాలు">Product information</h3><span>01</span></div>
+<div class="detail-specifications" id="detailSpecifications"></div><p class="detail-stock-note" id="detailStock"></p>
+<div class="detail-action-row"><button class="button button-dark detail-add-button" id="detailAddToBag" type="button"><span id="detailAddLabel">Add to Bag</span></button><button class="button share-button" id="shareProductButton" type="button"><span>↗</span><span data-en="Share" data-te="షేర్">Share</span></button></div>
+<p class="detail-payment-note">Availability and final charges are confirmed before order acceptance.</p></div></div></section>
+</main>
+<footer class="market-footer"><a class="brand" href="#home"><span class="brand-symbol">R.</span><span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span></a><span>SHOP WITH CLARITY. CHOOSE WITH CONFIDENCE.</span><span>© <span id="year"></span> RAGHAVENDRA</span></footer>
+<div class="cart-backdrop" id="cartBackdrop"></div><aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
+<div class="cart-header"><div><p class="eyebrow">YOUR SELECTION</p><h2 data-en="Shopping bag" data-te="షాపింగ్ బ్యాగ్">Shopping bag</h2></div><button class="icon-button" id="closeCart" type="button" aria-label="Close bag">×</button></div>
+<div class="cart-items" id="cartItems"></div><div class="cart-footer"><div class="cart-total"><span data-en="Subtotal" data-te="మొత్తం">Subtotal</span><strong id="cartTotal">₹0</strong></div><p>Delivery charges and final amount will be confirmed by the store.</p><button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled><span data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp</span><span>↗</span></button><button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button></div></aside>
+<div class="toast" id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="script.js"></script>
+</body></html>
