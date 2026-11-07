@@ -13,7 +13,6 @@
 </head>
 <body>
   <div class="announcement" data-en="Your neighbourhood store, now a little closer." data-te="మీ ఇంటి పక్కనే ఉన్న దుకాణం — ఇప్పుడు మరింత దగ్గరగా.">Your neighbourhood store, now a little closer.</div>
-
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Raghavendra Kirana home">
       <span class="brand-mark">R</span>
@@ -59,14 +58,15 @@
       <section class="shop-section section-wrap" id="shop">
         <div class="section-heading">
           <div><p class="eyebrow" data-en="THE DAILY EDIT" data-te="రోజువారీ అవసరాలు">THE DAILY EDIT</p><h2 data-en="Shop products" data-te="ఉత్పత్తులను కొనండి">Shop products</h2></div>
-          <p data-en="Explore our available products. We’ll confirm price and availability before accepting your order." data-te="మా ఉత్పత్తులను చూడండి. ఆర్డర్‌ను అంగీకరించే ముందు ధర మరియు స్టాక్‌ను నిర్ధారిస్తాము.">Explore our available products. We’ll confirm price and availability before accepting your order.</p>
+          <p data-en="Explore available products. We’ll confirm price and availability before accepting your order." data-te="మా ఉత్పత్తులను చూడండి. ఆర్డర్‌ను అంగీకరించే ముందు ధర మరియు స్టాక్‌ను నిర్ధారిస్తాము.">Explore available products. We’ll confirm price and availability before accepting your order.</p>
         </div>
         <div class="shop-toolbar">
           <div class="filters" id="categoryFilters" aria-label="Product categories"></div>
           <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products…" aria-label="Search products"></label>
         </div>
+        <div class="catalogue-status" id="catalogueStatus" role="status"></div>
         <div class="product-grid" id="productGrid" aria-live="polite"></div>
-        <p class="catalogue-note" data-en="Prices and stock are confirmed by the shop. Product photos show the listed product." data-te="ధరలు మరియు స్టాక్‌ను దుకాణం నిర్ధారిస్తుంది. ఉత్పత్తి చిత్రాలు జాబితాలోని వస్తువును చూపిస్తాయి.">Prices and stock are confirmed by the shop. Product photos show the listed product.</p>
+        <p class="catalogue-note" data-en="Prices and stock are confirmed by the shop. Delivery charges are extra." data-te="ధరలు మరియు స్టాక్‌ను దుకాణం నిర్ధారిస్తుంది. డెలివరీ ఛార్జీలు అదనం.">Prices and stock are confirmed by the shop. Delivery charges are extra.</p>
       </section>
 
       <section class="promise-section" id="about">
@@ -86,40 +86,24 @@
     </div>
 
     <section class="product-detail-section section-wrap" id="productDetails" hidden>
-      <button class="back-button" id="backToShop" type="button" data-en="← Back to shop" data-te="← షాప్‌కు తిరిగి వెళ్లండి">← Back to shop</button>
+      <button class="back-button" id="backToShop" type="button">← <span data-en="Back to shop" data-te="షాప్‌కు తిరిగి వెళ్లండి">Back to shop</span></button>
       <div class="product-detail-grid">
         <div class="detail-gallery">
-          <div class="detail-main-image"><img id="detailMainImage" src="golki-cover-1.jpg" alt="GOLKI COVERS black coffee design phone cover"></div>
-          <div class="detail-thumbnails" id="detailThumbnails">
-            <button type="button" data-image="golki-cover-1.jpg" class="selected"><img src="golki-cover-1.jpg" alt="Product view 1"></button>
-            <button type="button" data-image="golki-cover-2.jpg"><img src="golki-cover-2.jpg" alt="Product view 2"></button>
-            <button type="button" data-image="golki-cover-3.jpg"><img src="golki-cover-3.jpg" alt="Product view 3"></button>
-            <button type="button" data-image="golki-cover-4.jpg"><img src="golki-cover-4.jpg" alt="Product view 4"></button>
-          </div>
+          <div class="detail-main-image"><img id="detailMainImage" src="" alt=""></div>
+          <div class="detail-thumbnails" id="detailThumbnails"></div>
         </div>
         <div class="product-detail-info">
-          <p class="eyebrow" data-en="MOBILE ACCESSORIES" data-te="మొబైల్ ఉపకరణాలు">MOBILE ACCESSORIES</p>
-          <h1>GOLKI COVERS</h1>
-          <p class="product-detail-description" data-en="Black silicone back cover with a raised 3D coffee-cup and character design. The Meesho listing title names Nothing Phone 4b 5G; its compatibility field says “Others”, so please confirm the exact phone fit with the shop before ordering." data-te="3D కాఫీ కప్ మరియు క్యారెక్టర్ డిజైన్‌తో బ్లాక్ సిలికాన్ బ్యాక్ కవర్. Meesho శీర్షికలో Nothing Phone 4b 5G అని ఉంది; అయితే compatibility ఫీల్డ్‌లో “Others” అని ఉంది. ఆర్డర్‌కు ముందు ఫోన్‌కు సరిపోతుందో షాప్‌తో నిర్ధారించండి.">Black silicone back cover with a raised 3D coffee-cup and character design. The Meesho listing title names Nothing Phone 4b 5G; its compatibility field says “Others”, so please confirm the exact phone fit with the shop before ordering.</p>
-          <h2 class="detail-price">₹219</h2>
+          <p class="eyebrow" id="detailEyebrow">PRODUCT</p>
+          <h1 id="detailName"></h1>
+          <p class="product-detail-description" id="detailDescription"></p>
+          <h2 class="detail-price" id="detailPrice"></h2>
           <p class="detail-delivery" data-en="Delivery charges are extra and will be confirmed separately." data-te="డెలివరీ ఛార్జీలు అదనం. వాటిని విడిగా నిర్ధారిస్తాము.">Delivery charges are extra and will be confirmed separately.</p>
           <div class="detail-divider"></div>
           <h3 data-en="Product information" data-te="ఉత్పత్తి వివరాలు">Product information</h3>
-          <div class="detail-specifications">
-            <div><span data-en="Brand" data-te="బ్రాండ్">Brand</span><strong>GOLKI COVERS</strong></div>
-            <div><span data-en="Product" data-te="ఉత్పత్తి">Product</span><strong data-en="Silicone back cover" data-te="సిలికాన్ బ్యాక్ కవర్">Silicone back cover</strong></div>
-            <div><span data-en="Listing title model" data-te="లిస్టింగ్‌లోని మోడల్">Listing title model</span><strong>Nothing Phone 4b 5G</strong></div>
-            <div><span data-en="Compatibility field" data-te="అనుకూలత వివరాలు">Compatibility field</span><strong data-en="Others — confirm fit" data-te="Others — సరిపోతుందో నిర్ధారించండి">Others — confirm fit</strong></div>
-            <div><span data-en="Material" data-te="మెటీరియల్">Material</span><strong data-en="Silicon (as listed)" data-te="సిలికాన్ (లిస్టింగ్ ప్రకారం)">Silicon (as listed)</strong></div>
-            <div><span data-en="Colour" data-te="రంగు">Colour</span><strong data-en="Black" data-te="నలుపు">Black</strong></div>
-            <div><span data-en="Quantity" data-te="పరిమాణం">Quantity</span><strong>1</strong></div>
-            <div><span data-en="Size" data-te="సైజు">Size</span><strong data-en="Free Size" data-te="ఫ్రీ సైజ్">Free Size</strong></div>
-            <div><span data-en="Dimensions" data-te="కొలతలు">Dimensions</span><strong>10 × 7 cm</strong></div>
-            <div><span data-en="Country of origin" data-te="తయారీ దేశం">Country of origin</span><strong data-en="India" data-te="భారతదేశం">India</strong></div>
-          </div>
-          <p class="detail-stock-note" data-en="Stock and exact phone compatibility will be confirmed by the shop before accepting your order." data-te="మీ ఆర్డర్‌ను అంగీకరించే ముందు స్టాక్ మరియు ఫోన్ అనుకూలతను షాప్ నిర్ధారిస్తుంది.">Stock and exact phone compatibility will be confirmed by the shop before accepting your order.</p>
-          <button class="button button-dark detail-add-button" id="detailAddToBag" type="button"><span data-en="Add to Bag · ₹219" data-te="బ్యాగ్‌లో జోడించండి · ₹219">Add to Bag · ₹219</span></button>
-          <p class="detail-payment-note" data-en="Your order is confirmed only after the shop verifies availability, compatibility, delivery charges and payment." data-te="స్టాక్, అనుకూలత, డెలివరీ ఛార్జీలు మరియు చెల్లింపును షాప్ నిర్ధారించిన తర్వాతే మీ ఆర్డర్ ఖరారు అవుతుంది.">Your order is confirmed only after the shop verifies availability, compatibility, delivery charges and payment.</p>
+          <div class="detail-specifications" id="detailSpecifications"></div>
+          <p class="detail-stock-note" id="detailStock"></p>
+          <button class="button button-dark detail-add-button" id="detailAddToBag" type="button"><span id="detailAddLabel">Add to Bag</span></button>
+          <p class="detail-payment-note" data-en="Your order is confirmed only after the shop verifies availability, delivery charges and payment." data-te="స్టాక్, డెలివరీ ఛార్జీలు మరియు చెల్లింపును షాప్ నిర్ధారించిన తర్వాతే మీ ఆర్డర్ ఖరారు అవుతుంది.">Your order is confirmed only after the shop verifies availability, delivery charges and payment.</p>
         </div>
       </div>
     </section>
@@ -140,6 +124,8 @@
     <div class="cart-footer"><div class="cart-total"><span data-en="Subtotal" data-te="మొత్తం">Subtotal</span><strong id="cartTotal">₹0</strong></div><p data-en="Delivery charges are extra. Final amount will be confirmed by the shop." data-te="డెలివరీ ఛార్జీలు అదనం. చివరి మొత్తాన్ని దుకాణం నిర్ధారిస్తుంది.">Delivery charges are extra. Final amount will be confirmed by the shop.</p><button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled><span data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp</span><span>↗</span></button><button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button></div>
   </aside>
   <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
