@@ -1,203 +1,132 @@
-/* Raghavendra Kirana — Supabase-powered customer storefront */
-const SHOP_WHATSAPP_NUMBER = "919182368811"; // Confirm this is the shop's WhatsApp number.
-const SUPABASE_URL = "https://qmpvfwdinfhfzpughsam.supabase.co";
-const SUPABASE_KEY = "sb_publishable_u8og4u_4MLem7eefRXDcBA_JYJZiniAG";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+/* Raghavendra — minimalist experimental marketplace */
+:root{--paper:#f5f5f2;--surface:#fff;--ink:#171815;--muted:#777970;--line:#dedfd8;--acid:#d7f36a;--sans:"DM Sans",Arial,sans-serif;--display:"Space Grotesk",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}body.no-scroll{overflow:hidden}
+button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{color:inherit}
+.delivery-announcement{min-height:38px;padding:9px 5.5%;display:flex;align-items:center;justify-content:center;gap:9px;background:#e9eddf;color:#34372e;text-align:center;font-size:11px;line-height:1.5;letter-spacing:.1px}.delivery-announcement strong{font-weight:700;color:#171815}.delivery-announcement-icon{width:17px;height:17px;display:inline-grid;place-items:center;flex:0 0 17px;border:1px solid #aeb59e;border-radius:50%;font-size:10px;font-weight:700}
+.topline{height:31px;padding:0 5.5%;display:flex;align-items:center;justify-content:space-between;background:var(--ink);color:#f5f5f2;font-size:9px;letter-spacing:1.3px}.topline span:first-child{color:var(--acid)}
+.market-header{min-height:82px;padding:15px 5.5%;display:grid;grid-template-columns:220px minmax(200px,1fr) 220px;align-items:center;gap:35px;background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.brand{display:inline-flex;align-items:center;gap:10px;width:max-content}.brand-symbol{width:39px;height:39px;display:grid;place-items:center;background:var(--ink);color:var(--acid);font-family:var(--display);font-size:22px;font-weight:600}
+.brand-name{display:flex;flex-direction:column;gap:3px;font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:1.3px}.brand-name span{font-family:var(--sans);font-size:8px;font-weight:500;letter-spacing:1.5px;color:var(--muted)}
+.market-search{height:45px;display:flex;align-items:center;gap:12px;padding:0 15px;background:#fff;border:1px solid var(--line);border-radius:3px}.market-search>span{font-size:24px;color:var(--muted)}.market-search input{width:100%;border:0;outline:0;background:transparent;font-size:12px;color:var(--ink)}.market-search kbd{white-space:nowrap;padding:4px 6px;border:1px solid var(--line);border-radius:2px;color:var(--muted);font-size:9px}
+.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:20px}.language-toggle,.cart-trigger{border:0;background:transparent;cursor:pointer;font-size:12px}.language-toggle{padding:8px 10px;border:1px solid var(--line);border-radius:2px}.cart-trigger{display:flex;align-items:center;gap:7px}.bag-icon{font-size:21px}.bag-label{font-weight:600}.cart-count{min-width:19px;height:19px;padding:0 5px;display:grid;place-items:center;background:var(--acid);color:var(--ink);font-size:10px;font-weight:700;border-radius:50%}
+.market-intro{min-height:245px;padding:52px 8% 42px;display:flex;justify-content:space-between;align-items:end;gap:30px;border-bottom:1px solid var(--line)}.eyebrow{margin:0 0 14px;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:1.8px}
+.market-intro h1{margin:0;font-family:var(--display);font-size:clamp(48px,7vw,82px);line-height:.98;letter-spacing:-4px;font-weight:500}.market-intro h1 span{color:#8d9185}.intro-aside{max-width:280px;padding-bottom:5px}.intro-index{font-size:9px;letter-spacing:1.5px;color:var(--muted)}.intro-aside p{margin:13px 0 0;font-size:12px;line-height:1.8;color:#66695f}
+.shop-section{width:min(1320px,88%);margin:0 auto;padding:48px 0 80px;scroll-margin-top:100px}.catalogue-topline{display:flex;align-items:end;justify-content:space-between;margin-bottom:25px}.catalogue-topline .eyebrow{margin-bottom:8px}.catalogue-topline h2{margin:0;font-family:var(--display);font-size:28px;font-weight:500;letter-spacing:-1px}.catalogue-label{padding-bottom:5px;color:var(--muted);font-size:9px;letter-spacing:1.4px}
+.shop-toolbar{min-height:53px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:23px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.filters{display:flex;align-items:center;flex-wrap:wrap;gap:5px;padding:8px 0}.filter-button{padding:9px 13px;border:1px solid transparent;border-radius:2px;background:transparent;color:#64675e;font-size:11px;cursor:pointer}.filter-button:hover{border-color:var(--line);color:var(--ink)}.filter-button.active{background:var(--ink);color:white}
+.catalogue-status{min-height:0;color:var(--muted);font-size:12px;line-height:1.7}.catalogue-status:not(:empty){margin:0 0 12px}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 16px}.product-card{min-width:0;padding:0 0 15px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;cursor:pointer;transition:transform .2s ease}.product-card:hover{transform:translateY(-3px);box-shadow:none}
+.product-visual{height:clamp(190px,22vw,285px);position:relative;background:#ecece7;border-radius:2px;overflow:hidden}.product-visual img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply}.image-placeholder{height:100%;display:grid;place-items:center;color:#9b9d94;font-size:11px}
+.product-category{margin:14px 0 6px;color:#8b8e84;font-size:8px;letter-spacing:1.4px;text-transform:uppercase}.product-card h3{min-height:40px;margin:0;font-family:var(--display);font-size:15px;line-height:1.35;font-weight:500}.product-meta{margin:7px 0;color:var(--muted);font-size:10px;line-height:1.6}.product-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}.price-label{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:-.4px}.add-button{width:32px;height:32px;border:0;border-radius:2px;background:var(--ink);color:white;font-size:20px;cursor:pointer}.add-button:disabled{opacity:.4;cursor:not-allowed}.view-details{display:block;margin-top:8px;color:#55594f;font-size:9px;letter-spacing:.4px}
+.empty-results{padding:60px 15px;text-align:center;color:var(--muted);font-size:13px;grid-column:1/-1}.catalogue-footer{display:flex;justify-content:space-between;gap:20px;padding-top:18px;margin-top:40px;border-top:1px solid var(--line);color:#92958b;font-size:8px;letter-spacing:1.4px}
+.product-detail-section{width:min(1240px,88%);min-height:65vh;margin:0 auto;padding:30px 0 90px}.product-detail-section[hidden],#homePage[hidden]{display:none!important}.back-button{display:inline-block;margin-bottom:28px;padding:9px 0;border:0;background:transparent;color:var(--muted);font-size:11px;cursor:pointer}.product-detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:7%;align-items:start}
+.detail-main-image{height:min(620px,55vw);min-height:380px;border-radius:2px;background:#ecece7;overflow:hidden;display:grid;place-items:center}.detail-main-image img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply}.detail-thumbnails{display:grid;grid-template-columns:repeat(4,75px);gap:9px;margin-top:12px}.detail-thumbnails button{height:75px;padding:4px;border:1px solid var(--line);border-radius:2px;background:white;overflow:hidden;cursor:pointer}.detail-thumbnails button.selected{border:1px solid var(--ink)}.detail-thumbnails img{width:100%;height:100%;object-fit:contain}
+.product-detail-info{padding-top:12px}.product-detail-info .eyebrow{letter-spacing:1.6px}.product-detail-info h1{margin:13px 0;font-family:var(--display);font-size:clamp(32px,4vw,52px);line-height:1.08;letter-spacing:-1.8px;font-weight:500}.product-detail-description{margin:18px 0;color:#6f7269;font-size:13px;line-height:1.9}.detail-price{margin:22px 0 4px;font-family:var(--display);font-size:32px;letter-spacing:-1px}.detail-delivery,.detail-stock-note,.detail-payment-note{color:var(--muted);font-size:11px;line-height:1.8}.detail-divider{height:1px;margin:25px 0;background:var(--line)}.detail-section-heading{display:flex;justify-content:space-between;align-items:center}.product-detail-info h3{margin:0 0 12px;font-size:13px;font-weight:600}.detail-section-heading span{color:#9a9d92;font-size:9px}.detail-specifications{display:grid}.detail-specifications div{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--line);font-size:11px}.detail-specifications span{color:var(--muted)}.detail-specifications strong{text-align:right}.detail-stock-note{margin:18px 0}
+.detail-action-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}.button{min-height:48px;padding:0 18px;border:1px solid transparent;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;font-size:11px;font-weight:600;transition:background .2s ease,transform .2s ease}.button:hover{transform:translateY(-1px)}.button-dark{background:var(--ink);color:white}.button-dark:disabled{opacity:.45;cursor:not-allowed;transform:none}.detail-add-button,.share-button{width:100%}.share-button{background:transparent;border-color:var(--ink);color:var(--ink)}.share-button:hover{background:var(--acid)}.detail-payment-note{margin-top:13px;text-align:left}
+.market-footer{min-height:100px;padding:25px 5.5%;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line)}.market-footer>span{color:var(--muted);font-size:8px;letter-spacing:1.2px}
+.cart-backdrop{position:fixed;inset:0;z-index:40;background:rgba(20,21,18,.38);opacity:0;visibility:hidden;transition:.25s}.cart-backdrop.open{opacity:1;visibility:visible}.cart-drawer{position:fixed;top:0;right:0;z-index:41;width:min(440px,100%);height:100%;padding:27px;display:flex;flex-direction:column;background:var(--surface);transform:translateX(100%);transition:transform .3s ease}.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:22px;border-bottom:1px solid var(--line)}.cart-header .eyebrow{margin-bottom:7px}.cart-header h2{margin:0;font-family:var(--display);font-size:27px;font-weight:500;letter-spacing:-1px}.icon-button{width:36px;height:36px;border:1px solid var(--line);border-radius:2px;background:transparent;font-size:22px;cursor:pointer}.cart-items{flex:1;overflow-y:auto;padding:12px 0}.cart-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}.cart-row h3{margin:0 0 7px;font-family:var(--display);font-size:14px;font-weight:500}.cart-row small{color:var(--muted);font-size:10px}.quantity-control{display:flex;align-items:center;gap:10px}.quantity-control button{width:27px;height:27px;border:1px solid var(--line);border-radius:2px;background:transparent;cursor:pointer}.quantity-control span{min-width:12px;text-align:center;font-size:11px}.cart-empty{padding:45px 5px;color:var(--muted);font-size:12px;line-height:2;text-align:center}.cart-footer{padding-top:18px;border-top:1px solid var(--line)}.cart-total{display:flex;justify-content:space-between;font-size:12px}.cart-total strong{font-family:var(--display);font-size:19px}.cart-footer>p{color:var(--muted);font-size:10px;line-height:1.7}.checkout-button{width:100%;margin-top:12px}.text-button{display:block;margin:14px auto 0;padding:8px;border:0;background:transparent;color:var(--muted);font-size:11px;cursor:pointer}
+.toast{position:fixed;bottom:25px;left:50%;z-index:60;max-width:calc(100% - 30px);padding:13px 19px;border-radius:2px;background:var(--ink);color:white;font-size:11px;text-align:center;opacity:0;visibility:hidden;transform:translate(-50%,10px);transition:.25s}.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media(max-width:900px){.market-header{grid-template-columns:180px minmax(150px,1fr) 160px;gap:15px}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.market-intro{padding-left:6%;padding-right:6%}}
+@media(max-width:650px){.delivery-announcement{padding:8px 4%;font-size:10px;gap:7px}.topline{padding:0 4%;font-size:8px;letter-spacing:.7px}.topline span:nth-child(2){display:none}.market-header{min-height:unset;padding:12px 4%;grid-template-columns:1fr auto;gap:12px}.brand-symbol{width:34px;height:34px;font-size:19px}.brand-name{font-size:11px}.brand-name span{font-size:7px}.header-actions{gap:8px}.language-toggle{padding:7px;font-size:10px}.cart-trigger{gap:5px;font-size:11px}.bag-icon{font-size:18px}.bag-label{display:none}.market-search{grid-column:1/-1;grid-row:2;height:41px}.market-search kbd{display:none}.market-intro{min-height:unset;padding:38px 6% 30px;display:block}.market-intro h1{font-size:54px;letter-spacing:-2.8px}.intro-aside{max-width:100%;margin-top:22px}.intro-aside p{max-width:320px;font-size:11px}.shop-section{width:90%;padding:34px 0 60px}.catalogue-topline h2{font-size:24px}.catalogue-label{font-size:8px}.shop-toolbar{align-items:flex-start;flex-direction:column;gap:0;padding:7px 0}.filters{width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter-button{white-space:nowrap;padding:8px 11px;font-size:10px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 11px}.product-visual{height:clamp(145px,48vw,230px)}.product-card{padding-bottom:12px}.product-category{margin-top:11px;font-size:7px}.product-card h3{min-height:38px;font-size:13px}.product-meta{font-size:9px}.price-label{font-size:15px}.add-button{width:29px;height:29px}.view-details{font-size:8px}.catalogue-footer{font-size:7px;letter-spacing:.8px}.product-detail-section{width:90%;padding:20px 0 55px}.product-detail-grid{grid-template-columns:1fr;gap:25px}.detail-main-image{height:95vw;min-height:300px;max-height:440px}.detail-thumbnails{grid-template-columns:repeat(4,65px)}.detail-thumbnails button{height:65px}.product-detail-info h1{font-size:37px}.market-footer{padding:22px 5%;align-items:flex-start;flex-direction:column;gap:14px}.market-footer>span{font-size:7px}.detail-action-row{grid-template-columns:1fr 1fr}.cart-drawer{padding:22px}}
+@media(max-width:370px){.product-grid{gap:17px 8px}.product-card h3{font-size:12px}.detail-action-row{grid-template-columns:1fr}}
 
-let products = [];
-let categories = [];
-let language = "en";
-let activeCategory = "All";
-let cart = {};
-let activeProductId = null;
-const $ = id => document.getElementById(id);
-const t = (en, te) => language === "te" ? te : en;
+/* ---------------------------------------------------------
+SUBTLE, BALANCED MOTION — Raghavendra Marketplace
+CSS-only enhancements; no changes to Supabase or script.js.
+--------------------------------------------------------- */
+:root {
+--motion-fast: 180ms;
+--motion-medium: 420ms;
+--motion-slow: 650ms;
+--motion-ease: cubic-bezier(.22, 1, .36, 1);
+}
 
-function esc(value = "") {
-return String(value).replace(/[&<>"']/g, c => ({"&":"&","<":"<",">":">",'"':""","'":"'"}[c]));
+@keyframes softFadeUp {
+from { opacity: 0; transform: translate3d(0, 14px, 0); }
+to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
-function money(value) {
-return ₹${Number(value || 0).toLocaleString("en-IN", {maximumFractionDigits:2})};
-}
-function categoryName(product) {
-return product.categories?.name || categories.find(c => c.id === product.category_id)?.name || t("Products","ఉత్పత్తులు");
-}
-function renderLanguage() {
-document.documentElement.lang = language === "te" ? "te" : "en";
-document.querySelectorAll("[data-en][data-te]").forEach(el => { el.innerHTML = el.dataset[language]; });
-$("languageToggle").textContent = language === "en" ? "తెలుగు" : "English";
-$("searchInput").placeholder = t("Search products…","ఉత్పత్తులను వెతకండి…");
-renderCategories();
-renderProducts();
-renderCart();
-const p = products.find(x => x.id === activeProductId);
-if (p && !$("productDetails").hidden) renderDetails(p);
-}
-function renderCategories() {
-const items = [{id:"All",name:t("All products","అన్ని ఉత్పత్తులు")}, ...categories];
-$("categoryFilters").innerHTML = items.map(c => <button class="filter-button ${activeCategory===c.id?"active":""}" type="button" data-category="${esc(c.id)}">${esc(c.name)}</button>).join("");
-$("categoryFilters").querySelectorAll("[data-category]").forEach(b => b.addEventListener("click",()=>{
-activeCategory=b.dataset.category; renderCategories(); renderProducts();
-}));
-}
-function renderProducts() {
-const q=$("searchInput").value.trim().toLocaleLowerCase();
-const list=products.filter(p=>{
-const categoryOk=activeCategory==="All" || p.category_id===activeCategory;
-const searchOk=!q || [p.name,p.description,categoryName(p)].some(v=>String(v||"").toLocaleLowerCase().includes(q));
-return categoryOk && searchOk;
-});
-$("productGrid").innerHTML=list.length?list.map(p=>   <article class="product-card" data-product="${esc(p.id)}" tabindex="0" role="button" aria-label="${esc(t("View product details","ఉత్పత్తి వివరాలను చూడండి"))}: ${esc(p.name)}">   <div class="product-visual">${p.image_url?<img src="${esc(p.image_url)}" alt="${esc(p.name)}" loading="lazy">:<div class="image-placeholder">${esc(t("Product image","ఉత్పత్తి చిత్రం"))}</div>}</div>   <p class="product-category">${esc(categoryName(p))}</p><h3>${esc(p.name)}</h3>   <p class="product-meta">${esc(p.description||"")}</p>   <div class="product-bottom"><span class="price-label">${money(p.price)}</span>   <button class="add-button" type="button" data-add="${esc(p.id)}" aria-label="${esc(t("Add to bag","బ్యాగ్‌లో జోడించండి"))}" ${Number(p.stock_quantity)<=0?"disabled":""}>+</button></div>   <p class="product-meta">${esc(t(In stock: ${p.stock_quantity} ,స్టాక్: ${p.stock_quantity}))} · ${esc(t("Delivery charges extra","డెలివరీ ఛార్జీలు అదనం"))}</p>   <span class="view-details">${esc(t("View details ↗","వివరాలు చూడండి ↗"))}</span>   </article>).join(""):<div class="empty-results">${esc(t("No products found. Try another search.","ఉత్పత్తులు కనిపించలేదు. మరోసారి వెతకండి."))}</div>;
-$("productGrid").querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",e=>{e.stopPropagation();addToCart(b.dataset.add);}));
-}
-function productShareUrl(product) {
-const url = new URL(window.location.href);
-url.hash = product-${product.id};
-return url.toString();
-}
-function productShareText(product) {
-return ${product.name} — ${money(product.price)}\nRaghavendra Kirana & General Store\n${productShareUrl(product)};
-}
-async function shareActiveProduct() {
-const product = products.find(p => p.id === activeProductId);
-if (!product) return;
-const url = productShareUrl(product);
-const title = ${product.name} | Raghavendra Kirana;
-const text = ${product.name} — ${money(product.price)}\nRaghavendra Kirana & General Store;
-if (navigator.share) {
-try {
-await navigator.share({title, text, url});
-} catch (error) {
-if (error && error.name !== "AbortError") {
-try {
-await copyProductLink(url);
-} catch () {
-toast(t("Couldn't open sharing. Please copy the product link from your browser.","షేర్ చేయలేకపోయాం. బ్రౌజర్ నుంచి ఉత్పత్తి లింక్‌ను కాపీ చేయండి."));
-}
-}
-}
-} else {
-try {
-await copyProductLink(url);
-} catch {
-const waUrl = https://wa.me/?text=${encodeURIComponent(productShareText(product))};
-window.open(waUrl, "_blank", "noopener");
-}
-}
-}
-async function copyProductLink(url) {
-if (navigator.clipboard && window.isSecureContext) {
-await navigator.clipboard.writeText(url);
-toast(t("Product link copied. Share it anywhere!","ఉత్పత్తి లింక్ కాపీ అయింది. ఎక్కడైనా షేర్ చేయండి!"));
-return;
-}
-const field = document.createElement("textarea");
-field.value = url;
-field.setAttribute("readonly", "");
-field.style.position = "fixed";
-field.style.opacity = "0";
-document.body.appendChild(field);
-field.select();
-const copied = document.execCommand("copy");
-field.remove();
-if (!copied) throw new Error("Copy failed");
-toast(t("Product link copied. Share it anywhere!","ఉత్పత్తి లింక్ కాపీ అయింది. ఎక్కడైనా షేర్ చేయండి!"));
-}
-function renderDetails(p) {
-activeProductId=p.id;
-$("detailMainImage").src=p.image_url||"";
-$("detailMainImage").alt=p.name;
-$("detailEyebrow").textContent=categoryName(p);
-$("detailName").textContent=p.name;
-$("detailDescription").textContent=p.description||"";
-$("detailPrice").textContent=money(p.price);
-$("detailStock").textContent=Number(p.stock_quantity)>0?t(Available stock: ${p.stock_quantity},అందుబాటులో ఉన్న స్టాక్: ${p.stock_quantity}):t("Out of stock","స్టాక్ లేదు");
-$("detailAddLabel").textContent=${t("Add to Bag","బ్యాగ్‌లో జోడించండి")} · ${money(p.price)};
-$("detailAddToBag").disabled=Number(p.stock_quantity)<=0;
-$("detailSpecifications").innerHTML=   <div><span>${esc(t("Category","వర్గం"))}</span><strong>${esc(categoryName(p))}</strong></div>   <div><span>${esc(t("Price","ధర"))}</span><strong>${money(p.price)}</strong></div>   <div><span>${esc(t("Available stock","అందుబాటులో ఉన్న స్టాక్"))}</span><strong>${Number(p.stock_quantity)}</strong></div>;
-$("detailThumbnails").innerHTML=p.image_url?<button type="button" class="selected" data-image="${esc(p.image_url)}"><img src="${esc(p.image_url)}" alt="${esc(p.name)}"></button>:"";
-}
-function openProduct(id, push=true) {
-const p=products.find(x=>x.id===id); if(!p)return;
-closeCart(); renderDetails(p); $("homePage").hidden=true; $("productDetails").hidden=false;
-if(push)history.pushState({page:"product",id},"",#product-${id});
-window.scrollTo({top:0,behavior:"smooth"});
-}
-function backToShop(push=true) {
-$("productDetails").hidden=true;$("homePage").hidden=false;activeProductId=null;
-if(push)history.pushState({page:"home"},"","#shop");
-requestAnimationFrame(()=>$("shop").scrollIntoView({behavior:"smooth",block:"start"}));
-}
-$("productGrid").addEventListener("click",e=>{if(e.target.closest("[data-add]"))return;const card=e.target.closest("[data-product]");if(card)openProduct(card.dataset.product);});
-$("productGrid").addEventListener("keydown",e=>{const card=e.target.closest("[data-product]");if(card&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openProduct(card.dataset.product);}});
-$("backToShop").addEventListener("click",()=>backToShop());
-$("detailThumbnails").addEventListener("click",e=>{const b=e.target.closest("[data-image]");if(!b)return;$("detailMainImage").src=b.dataset.image;$("detailThumbnails").querySelectorAll("button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");});
 
-function addToCart(id) {
-const p=products.find(x=>x.id===id);if(!p)return;
-if((cart[id]||0)>=Number(p.stock_quantity||0)){toast(t("Available stock limit reached.","అందుబాటులో ఉన్న స్టాక్ పరిమితి చేరుకుంది."));return;}
-cart[id]=(cart[id]||0)+1;renderCart();toast(t("Added to your bag","మీ బ్యాగ్‌లో చేర్చబడింది"));
+@keyframes softFadeIn {
+from { opacity: 0; }
+to   { opacity: 1; }
 }
-function changeQty(id,delta) {
-const p=products.find(x=>x.id===id);if(!p)return;
-const next=(cart[id]||0)+delta;
-if(next<=0)delete cart[id];
-else if(next<=Number(p.stock_quantity||0))cart[id]=next;
-else toast(t("Available stock limit reached.","అందుబాటులో ఉన్న స్టాక్ పరిమితి చేరుకుంది."));
-renderCart();
-}
-$("detailAddToBag").addEventListener("click",()=>{if(activeProductId){addToCart(activeProductId);openCart();}});
-$("shareProductButton").addEventListener("click",shareActiveProduct);
-function renderCart() {
-const entries=Object.entries(cart),count=entries.reduce((s,[,q])=>s+q,0);
-const subtotal=entries.reduce((s,[id,q])=>{const p=products.find(x=>x.id===id);return s+(p?Number(p.price)*q:0);},0);
-$("cartCount").textContent=count;$("cartTotal").textContent=money(subtotal);$("checkoutButton").disabled=!count;
-$("cartItems").innerHTML=entries.length?entries.map(([id,q])=>{const p=products.find(x=>x.id===id);if(!p)return"";return   <div class="cart-row"><div><h3>${esc(p.name)}</h3><small>${money(p.price)} × ${q} = ${money(Number(p.price)*q)}</small></div>   <div class="quantity-control"><button type="button" data-qty="${esc(id)}" data-delta="-1">−</button><span>${q}</span><button type="button" data-qty="${esc(id)}" data-delta="1">+</button></div></div>;}).join("")+<p class="product-meta">${esc(t("Delivery charges will be calculated separately.","డెలివరీ ఛార్జీలు విడిగా లెక్కించబడతాయి."))}</p>:<div class="cart-empty">${esc(t("Your bag is empty.","మీ బ్యాగ్ ఖాళీగా ఉంది."))}</div>;
-$("cartItems").querySelectorAll("[data-qty]").forEach(b=>b.addEventListener("click",()=>changeQty(b.dataset.qty,Number(b.dataset.delta))));
-}
-function openCart(){$("cartDrawer").classList.add("open");$("cartBackdrop").classList.add("open");$("cartDrawer").setAttribute("aria-hidden","false");document.body.classList.add("no-scroll");}
-function closeCart(){$("cartDrawer").classList.remove("open");$("cartBackdrop").classList.remove("open");$("cartDrawer").setAttribute("aria-hidden","true");document.body.classList.remove("no-scroll");}
-function orderMessage() {
-const entries=Object.entries(cart),lines=entries.map(([id,q])=>{const p=products.find(x=>x.id===id);return p?• ${p.name} × ${q} = ${money(Number(p.price)*q)}:"";}).filter(Boolean);
-const total=entries.reduce((s,[id,q])=>{const p=products.find(x=>x.id===id);return s+(p?Number(p.price)*q:0);},0);
-return Hello Raghavendra Kirana & General Store,\n\nI would like to place an order:\n\n${lines.join("\n")}\n\nSubtotal: ${money(total)}\nDelivery charges: Extra (to be confirmed)\nFinal total: To be confirmed by the shop.\n\nPlease confirm availability, delivery charges and payment details.\n\nOrder preference: [Pickup / Delivery]\nCustomer name: [Your name]\nDelivery address (if required): [Your address]\n\nThank you.;
-}
-function checkout() {
-if(!Object.keys(cart).length)return;
-const number=SHOP_WHATSAPP_NUMBER.replace(/\D/g,"");
-if(!/^91\d{10}$/.test(number)){toast(t("Please verify the shop WhatsApp number.","షాప్ వాట్సాప్ నంబర్‌ను తనిఖీ చేయండి."));return;}
-const opened=window.open(https://wa.me/${number}?text=${encodeURIComponent(orderMessage())},"_blank");
-if(!opened)toast(t("Allow pop-ups to open WhatsApp.","వాట్సాప్ తెరవడానికి పాప్-అప్‌లను అనుమతించండి."));
-}
-let toastTimer;
-function toast(message){$("toast").textContent=message;$("toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2600);}
 
-async function loadCatalogue() {
-$("catalogueStatus").textContent=t("Loading products…","ఉత్పత్తులు లోడ్ అవుతున్నాయి…");
-const [catRes,prodRes]=await Promise.all([
-db.from("categories").select("id,name").order("name"),
-db.from("products").select("id,name,description,price,stock_quantity,image_url,category_id,is_active,categories(name)")
-.eq("is_active",true).gt("stock_quantity",0).order("created_at",{ascending:false})
-]);
-if(catRes.error)console.error("Category query failed:",catRes.error);
-categories=catRes.data||[];
-if(prodRes.error){
-console.error("Product query failed:",prodRes.error);
-$("catalogueStatus").textContent=t("We couldn't load products. Please refresh or try again later.","ఉత్పత్తులను లోడ్ చేయలేకపోయాం. రిఫ్రెష్ చేసి మళ్లీ ప్రయత్నించండి.");
-$("productGrid").innerHTML="";return;
+@keyframes announcementIn {
+from { opacity: 0; transform: translateY(-6px); }
+to   { opacity: 1; transform: translateY(0); }
 }
-products=prodRes.data||[];
-$("catalogueStatus").textContent=products.length?"":t("Our catalogue is being updated. Please check back soon.","మా ఉత్పత్తుల జాబితా నవీకరించబడుతోంది. త్వరలో మళ్లీ చూడండి.");
-renderCategories();renderProducts();
-const match=location.hash.match(/^#product-(.+)$/);
-if(match&&products.some(p=>p.id===match[1]))openProduct(match[1],false);
+
+/* Page entrance */
+.delivery-announcement { animation: announcementIn 520ms var(--motion-ease) both; }
+.topline { animation: softFadeIn 520ms ease both; }
+.market-header { animation: softFadeIn 600ms ease both; }
+.market-intro > div:first-child { animation: softFadeUp 700ms 80ms var(--motion-ease) both; }
+.intro-aside { animation: softFadeUp 700ms 180ms var(--motion-ease) both; }
+.catalogue-topline { animation: softFadeUp 600ms 160ms var(--motion-ease) both; }
+
+/* Product cards also animate when dynamically rendered from Supabase. */
+.product-card {
+animation: softFadeUp 560ms var(--motion-ease) both;
+transition: transform var(--motion-medium) var(--motion-ease),
+opacity var(--motion-medium) ease;
+will-change: transform;
 }
-$("languageToggle").addEventListener("click",()=>{language=language==="en"?"te":"en";renderLanguage();});
-$("searchInput").addEventListener("input",renderProducts);
-$("cartTrigger").addEventListener("click",openCart);$("closeCart").addEventListener("click",closeCart);
-$("cartBackdrop").addEventListener("click",closeCart);$("checkoutButton").addEventListener("click",checkout);
-$("clearCart").addEventListener("click",()=>{cart={};renderCart();toast(t("Your bag has been cleared.","మీ బ్యాగ్ ఖాళీ చేయబడింది."));});
-window.addEventListener("popstate",()=>{const m=location.hash.match(/^#product-(.+)$/);if(m&&products.some(p=>p.id===m[1]))openProduct(m[1],false);else backToShop(false);});
-$("year").textContent=new Date().getFullYear();
-renderLanguage();
-loadCatalogue();
+.product-card:nth-child(1) { animation-delay: 40ms; }
+.product-card:nth-child(2) { animation-delay: 80ms; }
+.product-card:nth-child(3) { animation-delay: 120ms; }
+.product-card:nth-child(4) { animation-delay: 160ms; }
+.product-card:nth-child(5) { animation-delay: 200ms; }
+.product-card:nth-child(6) { animation-delay: 240ms; }
+.product-card:nth-child(7) { animation-delay: 280ms; }
+.product-card:nth-child(8) { animation-delay: 320ms; }
+.product-card:nth-child(n+9) { animation-delay: 360ms; }
+
+.product-visual { overflow: hidden; }
+.product-visual img {
+transition: transform 650ms var(--motion-ease), opacity 300ms ease;
+}
+.product-card:hover .product-visual img,
+.product-card:focus-within .product-visual img {
+transform: scale(1.035);
+}
+.product-card:hover,
+.product-card:focus-within { transform: translateY(-4px); }
+
+/* Small, tactile interactions */
+button, .filter-button, .market-search, .detail-thumbnails button {
+transition: color var(--motion-fast) ease,
+background-color var(--motion-fast) ease,
+border-color var(--motion-fast) ease,
+box-shadow var(--motion-fast) ease,
+transform var(--motion-fast) var(--motion-ease);
+}
+button:active { transform: scale(.975); }
+.add-button:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(23,24,21,.13); }
+.filter-button:active { transform: scale(.97); }
+.market-search:focus-within { border-color: #aeb39f; box-shadow: 0 0 0 3px rgba(174,179,159,.14); }
+.language-toggle:hover, .icon-button:hover, .detail-thumbnails button:hover { border-color: #aeb39f; }
+
+/* Product detail and cart transitions */
+.product-detail-section:not([hidden]) { animation: softFadeUp 460ms var(--motion-ease) both; }
+.detail-main-image img { transition: transform 600ms var(--motion-ease); }
+.detail-main-image:hover img { transform: scale(1.025); }
+.cart-backdrop { transition: opacity 280ms ease, visibility 280ms ease; }
+.cart-drawer { transition: transform 360ms var(--motion-ease); }
+.cart-row { animation: softFadeUp 300ms var(--motion-ease) both; }
+.toast { transition: opacity 220ms ease, visibility 220ms ease, transform 260ms var(--motion-ease); }
+
+/* Keep motion comfortable on smaller screens and for reduced-motion users. */
+@media (max-width: 650px) {
+.product-card:hover,
+.product-card:focus-within { transform: translateY(-2px); }
+.product-card:hover .product-visual img { transform: scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after {
+scroll-behavior: auto !important;
+animation-duration: .01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: .01ms !important;
+}
+}
