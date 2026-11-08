@@ -1,46 +1,180 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f5f2"><meta name="description" content="Discover and shop products at Raghavendra.">
-<title>Raghavendra — Online Shopping</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f2">
+  <meta name="description" content="Discover and shop products at Raghavendra.">
+  <title>Raghavendra — Online Shopping</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="delivery-announcement" role="note" aria-label="Delivery information">
-  <span class="delivery-announcement-icon" aria-hidden="true">↗</span>
-  <span>We aim to deliver every order within <strong>15 days</strong> from the date of order confirmation.</span>
-</div>
-<div class="topline"><span>NEW ARRIVALS</span><span>Explore the latest products</span><span>SHOP ONLINE ↗</span></div>
-<header class="market-header">
-<a class="brand" href="#home" aria-label="Raghavendra home"><span class="brand-symbol">R.</span><span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span></a>
-<label class="market-search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search products, brands and more…" aria-label="Search products"><kbd>⌘ K</kbd></label>
-<div class="header-actions"><button class="language-toggle" id="languageToggle" type="button">తెలుగు</button><button class="cart-trigger" id="cartTrigger" type="button"><span class="bag-icon">▢</span><span class="bag-label" data-en="Bag" data-te="బ్యాగ్">Bag</span><span class="cart-count" id="cartCount">0</span></button></div>
-</header>
-<main id="home">
-<div id="homePage">
-<section class="market-intro"><div><p class="eyebrow">CURATED FOR EVERYDAY</p><h1>Find your<br><span>next favourite.</span></h1></div><div class="intro-aside"><span class="intro-index">01 / DISCOVER</span><p>Explore products selected for everyday life. Find what you need, compare details and shop with ease.</p></div></section>
-<section class="shop-section" id="shop">
-<div class="catalogue-topline"><div><p class="eyebrow">THE COLLECTION</p><h2 data-en="Explore products" data-te="ఉత్పత్తులను చూడండి">Explore products</h2></div><span class="catalogue-label">PRODUCTS / 001—∞</span></div>
-<div class="shop-toolbar"><div class="filters" id="categoryFilters" aria-label="Product categories"></div></div>
-<div class="catalogue-status" id="catalogueStatus" role="status"></div><div class="product-grid" id="productGrid" aria-live="polite"></div>
-<div class="catalogue-footer"><span>END OF CURRENT COLLECTION</span><span>MORE PRODUCTS ADDED REGULARLY ↗</span></div>
-</section></div>
-<section class="product-detail-section" id="productDetails" hidden>
-<button class="back-button" id="backToShop" type="button">← <span data-en="All products" data-te="అన్ని ఉత్పత్తులు">All products</span></button>
-<div class="product-detail-grid"><div class="detail-gallery"><div class="detail-main-image"><img id="detailMainImage" src="" alt=""></div><div class="detail-thumbnails" id="detailThumbnails"></div></div>
-<div class="product-detail-info"><p class="eyebrow" id="detailEyebrow">PRODUCT DETAILS</p><h1 id="detailName"></h1><p class="product-detail-description" id="detailDescription"></p><h2 class="detail-price" id="detailPrice"></h2>
-<p class="detail-delivery">Delivery charges, if applicable, are confirmed separately.</p><div class="detail-divider"></div><div class="detail-section-heading"><h3 data-en="Product information" data-te="ఉత్పత్తి వివరాలు">Product information</h3><span>01</span></div>
-<div class="detail-specifications" id="detailSpecifications"></div><p class="detail-stock-note" id="detailStock"></p>
-<div class="detail-action-row"><button class="button button-dark detail-add-button" id="detailAddToBag" type="button"><span id="detailAddLabel">Add to Bag</span></button><button class="button share-button" id="shareProductButton" type="button"><span>↗</span><span data-en="Share" data-te="షేర్">Share</span></button></div>
-<p class="detail-payment-note">Availability and final charges are confirmed before order acceptance.</p></div></div></section>
-</main>
-<footer class="market-footer"><a class="brand" href="#home"><span class="brand-symbol">R.</span><span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span></a><span>SHOP WITH CLARITY. CHOOSE WITH CONFIDENCE.</span><span>© <span id="year"></span> RAGHAVENDRA</span></footer>
-<div class="cart-backdrop" id="cartBackdrop"></div><aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
-<div class="cart-header"><div><p class="eyebrow">YOUR SELECTION</p><h2 data-en="Shopping bag" data-te="షాపింగ్ బ్యాగ్">Shopping bag</h2></div><button class="icon-button" id="closeCart" type="button" aria-label="Close bag">×</button></div>
-<div class="cart-items" id="cartItems"></div><div class="cart-footer"><div class="cart-total"><span data-en="Subtotal" data-te="మొత్తం">Subtotal</span><strong id="cartTotal">₹0</strong></div><p>Delivery charges and final amount will be confirmed by the store.</p><button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled><span data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp</span><span>↗</span></button><button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button></div></aside>
-<div class="toast" id="toast" role="status"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="script.js"></script>
-</body></html>
+  <div class="delivery-announcement" role="note">
+    <span class="delivery-announcement-icon" aria-hidden="true">↗</span>
+    <span>We aim to deliver every order within <strong>15 days</strong> from the date of order confirmation.</span>
+  </div>
+
+  <div class="topline">
+    <span>NEW ARRIVALS</span>
+    <span>Explore the latest products</span>
+    <span>SHOP ONLINE ↗</span>
+  </div>
+
+  <header class="market-header">
+    <a class="brand" href="#home" aria-label="Raghavendra home">
+      <span class="brand-symbol">R.</span>
+      <span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span>
+    </a>
+
+    <label class="market-search">
+      <span>⌕</span>
+      <input id="searchInput" type="search" placeholder="Search products, brands and more…" aria-label="Search products">
+      <kbd>⌘ K</kbd>
+    </label>
+
+    <div class="header-actions">
+      <button class="language-toggle" id="languageToggle" type="button">తెలుగు</button>
+      <button class="cart-trigger" id="cartTrigger" type="button">
+        <span class="bag-icon">▢</span>
+        <span class="bag-label" data-en="Bag" data-te="బ్యాగ్">Bag</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="home">
+    <div id="homePage">
+      <section class="market-intro">
+        <div>
+          <p class="eyebrow">CURATED FOR EVERYDAY</p>
+          <h1>Find your<br><span>next favourite.</span></h1>
+        </div>
+
+        <div class="intro-aside">
+          <span class="intro-index">01 / DISCOVER</span>
+          <p>Explore products selected for everyday life. Find what you need, compare details and shop with ease.</p>
+        </div>
+      </section>
+
+      <section class="shop-section" id="shop">
+        <div class="catalogue-topline">
+          <div>
+            <p class="eyebrow">THE COLLECTION</p>
+            <h2 data-en="Explore products" data-te="ఉత్పత్తులను చూడండి">Explore products</h2>
+          </div>
+          <span class="catalogue-label">PRODUCTS / 001—∞</span>
+        </div>
+
+        <div class="shop-toolbar">
+          <div class="filters" id="categoryFilters" aria-label="Product categories"></div>
+        </div>
+
+        <div class="catalogue-status" id="catalogueStatus" role="status"></div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+
+        <div class="catalogue-footer">
+          <span>END OF CURRENT COLLECTION</span>
+          <span>MORE PRODUCTS ADDED REGULARLY ↗</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="product-detail-section" id="productDetails" hidden>
+      <button class="back-button" id="backToShop" type="button">
+        ← <span data-en="All products" data-te="అన్ని ఉత్పత్తులు">All products</span>
+      </button>
+
+      <div class="product-detail-grid">
+        <div class="detail-gallery">
+          <div class="detail-main-image">
+            <img id="detailMainImage" src="" alt="">
+          </div>
+          <div class="detail-thumbnails" id="detailThumbnails"></div>
+        </div>
+
+        <div class="product-detail-info">
+          <p class="eyebrow" id="detailEyebrow">PRODUCT DETAILS</p>
+          <h1 id="detailName"></h1>
+          <p class="product-detail-description" id="detailDescription"></p>
+          <h2 class="detail-price" id="detailPrice"></h2>
+
+          <p class="detail-delivery">Delivery charges, if applicable, are confirmed separately.</p>
+
+          <div class="detail-divider"></div>
+
+          <div class="detail-section-heading">
+            <h3 data-en="Product information" data-te="ఉత్పత్తి వివరాలు">Product information</h3>
+            <span>01</span>
+          </div>
+
+          <div class="detail-specifications" id="detailSpecifications"></div>
+          <p class="detail-stock-note" id="detailStock"></p>
+
+          <div class="detail-action-row">
+            <button class="button button-dark detail-add-button" id="detailAddToBag" type="button">
+              <span id="detailAddLabel">Add to Bag</span>
+            </button>
+
+            <button class="button share-button" id="shareProductButton" type="button">
+              <span>↗</span>
+              <span data-en="Share" data-te="షేర్">Share</span>
+            </button>
+          </div>
+
+          <p class="detail-payment-note">Availability and final charges are confirmed before order acceptance.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="market-footer">
+    <a class="brand" href="#home">
+      <span class="brand-symbol">R.</span>
+      <span class="brand-name">RAGHAVENDRA<span>ONLINE STORE</span></span>
+    </a>
+
+    <span>SHOP WITH CLARITY. CHOOSE WITH CONFIDENCE.</span>
+    <span>© <span id="year"></span> RAGHAVENDRA</span>
+  </footer>
+
+  <div class="cart-backdrop" id="cartBackdrop"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
+    <div class="cart-header">
+      <div>
+        <p class="eyebrow">YOUR SELECTION</p>
+        <h2 data-en="Shopping bag" data-te="షాపింగ్ బ్యాగ్">Shopping bag</h2>
+      </div>
+      <button class="icon-button" id="closeCart" type="button" aria-label="Close bag">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span data-en="Subtotal" data-te="మొత్తం">Subtotal</span>
+        <strong id="cartTotal">₹0</strong>
+      </div>
+
+      <p>Delivery charges and final amount will be confirmed by the store.</p>
+
+      <button class="button button-dark checkout-button" id="checkoutButton" type="button" disabled>
+        <span data-en="Continue to WhatsApp" data-te="వాట్సాప్‌కు కొనసాగండి">Continue to WhatsApp</span>
+        <span>↗</span>
+      </button>
+
+      <button class="text-button" id="clearCart" type="button" data-en="Clear bag" data-te="బ్యాగ్ ఖాళీ చేయండి">Clear bag</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
