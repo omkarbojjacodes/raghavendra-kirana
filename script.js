@@ -1,4 +1,8 @@
-/* Raghavendra Kirana — Supabase-powered customer storefront */
+
+/* =========================================================
+   RAGHAVENDRA ONLINE STORE
+   Supabase-powered customer storefront
+   ========================================================= */
 
 const SHOP_WHATSAPP_NUMBER = "919182368811";
 const SUPABASE_URL = "https://qmpvfwdinfhfzpughsam.supabase.co";
@@ -14,8 +18,11 @@ let cart = {};
 let activeProductId = null;
 
 const $ = id => document.getElementById(id);
-
 const t = (en, te) => language === "te" ? te : en;
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
 function esc(value = "") {
   return String(value).replace(/[&<>"']/g, c => ({
@@ -24,7 +31,7 @@ function esc(value = "") {
     ">": "&gt;",
     '"': "&quot;",
     "'": "&#39;"
-  }[c]));
+  })[c]);
 }
 
 function money(value) {
@@ -39,6 +46,10 @@ function categoryName(product) {
     t("Products", "ఉత్పత్తులు");
 }
 
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
 function renderLanguage() {
   document.documentElement.lang = language === "te" ? "te" : "en";
 
@@ -49,21 +60,23 @@ function renderLanguage() {
   $("languageToggle").textContent =
     language === "en" ? "తెలుగు" : "English";
 
-  $("searchInput").placeholder = t(
-    "Search products…",
-    "ఉత్పత్తులను వెతకండి…"
-  );
+  $("searchInput").placeholder =
+    t("Search products…", "ఉత్పత్తులను వెతకండి…");
 
   renderCategories();
   renderProducts();
   renderCart();
 
-  const product = products.find(x => x.id === activeProductId);
+  const product = products.find(p => p.id === activeProductId);
 
   if (product && !$("productDetails").hidden) {
     renderDetails(product);
   }
 }
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
 
 function renderCategories() {
   const items = [
@@ -78,8 +91,7 @@ function renderCategories() {
     <button
       class="filter-button ${activeCategory === c.id ? "active" : ""}"
       type="button"
-      data-category="${esc(c.id)}"
-    >
+      data-category="${esc(c.id)}">
       ${esc(c.name)}
     </button>
   `).join("");
@@ -95,121 +107,80 @@ function renderCategories() {
     });
 }
 
-/* PRODUCT LIST */
+/* =========================================================
+   PRODUCT LIST
+   ========================================================= */
 
 function renderProducts() {
-  const query = $("searchInput").value.trim().toLocaleLowerCase();
+  const q = $("searchInput").value.trim().toLocaleLowerCase();
 
-  const list = products.filter(product => {
+  const list = products.filter(p => {
     const categoryOk =
       activeCategory === "All" ||
-      product.category_id === activeCategory;
+      p.category_id === activeCategory;
 
     const searchOk =
-      !query ||
-      [
-        product.name,
-        product.description,
-        categoryName(product)
-      ].some(value =>
-        String(value || "").toLocaleLowerCase().includes(query)
-      );
+      !q ||
+      [p.name, p.description, categoryName(p)]
+        .some(v => String(v || "").toLocaleLowerCase().includes(q));
 
     return categoryOk && searchOk;
   });
 
   $("productGrid").innerHTML = list.length
-    ? list.map(product => {
-        const description = String(product.description || "");
-        const needsToggle = description.length > 180;
+    ? list.map(p => `
+      <article
+        class="product-card"
+        data-product="${esc(p.id)}"
+        tabindex="0"
+        role="button"
+        aria-label="${esc(t("View product details", "ఉత్పత్తి వివరాలను చూడండి"))}: ${esc(p.name)}">
 
-        return `
-          <article
-            class="product-card"
-            data-product="${esc(product.id)}"
-            tabindex="0"
-            role="button"
-            aria-label="${esc(t(
-              "View product details",
-              "ఉత్పత్తి వివరాలను చూడండి"
-            ))}: ${esc(product.name)}"
-          >
+        <div class="product-visual">
+          ${
+            p.image_url
+              ? `<img src="${esc(p.image_url)}"
+                     alt="${esc(p.name)}"
+                     loading="lazy">`
+              : `<div class="image-placeholder">
+                   ${esc(t("Product image", "ఉత్పత్తి చిత్రం"))}
+                 </div>`
+          }
+        </div>
 
-            <div class="product-visual">
-              ${
-                product.image_url
-                  ? `<img
-                      src="${esc(product.image_url)}"
-                      alt="${esc(product.name)}"
-                      loading="lazy"
-                    >`
-                  : `<div class="image-placeholder">
-                      ${esc(t("Product image", "ఉత్పత్తి చిత్రం"))}
-                    </div>`
-              }
-            </div>
+        <p class="product-category">${esc(categoryName(p))}</p>
 
-            <p class="product-category">
-              ${esc(categoryName(product))}
-            </p>
+        <h3>${esc(p.name)}</h3>
 
-            <h3>${esc(product.name)}</h3>
+        <p class="product-meta">${esc(p.description || "")}</p>
 
-            <p class="product-card-description product-meta">
-              ${esc(description)}
-            </p>
+        <div class="product-bottom">
+          <span class="price-label">${money(p.price)}</span>
 
-            ${
-              needsToggle
-                ? `<button
-                    class="description-toggle"
-                    type="button"
-                    data-description-toggle="${esc(product.id)}"
-                    aria-expanded="false"
-                  >
-                    ${esc(t("Read more", "మరింత చదవండి"))}
-                  </button>`
-                : ""
-            }
+          <button
+            class="add-button"
+            type="button"
+            data-add="${esc(p.id)}"
+            aria-label="${esc(t("Add to bag", "బ్యాగ్‌లో జోడించండి"))}"
+            ${Number(p.stock_quantity) <= 0 ? "disabled" : ""}>
+            +
+          </button>
+        </div>
 
-            <div class="product-bottom">
-              <span class="price-label">
-                ${money(product.price)}
-              </span>
+        <p class="product-meta">
+          ${esc(t(
+            `In stock: ${p.stock_quantity}`,
+            `స్టాక్: ${p.stock_quantity}`
+          ))}
+          · ${esc(t("Delivery charges extra", "డెలివరీ ఛార్జీలు అదనం"))}
+        </p>
 
-              <button
-                class="add-button"
-                type="button"
-                data-add="${esc(product.id)}"
-                aria-label="${esc(t(
-                  "Add to bag",
-                  "బ్యాగ్‌లో జోడించండి"
-                ))}"
-                ${Number(product.stock_quantity) <= 0 ? "disabled" : ""}
-              >
-                +
-              </button>
-            </div>
+        <span class="view-details">
+          ${esc(t("View details ↗", "వివరాలు చూడండి ↗"))}
+        </span>
 
-            <p class="product-meta">
-              ${esc(t(
-                `In stock: ${product.stock_quantity}`,
-                `స్టాక్: ${product.stock_quantity}`
-              ))}
-              ·
-              ${esc(t(
-                "Delivery charges extra",
-                "డెలివరీ ఛార్జీలు అదనం"
-              ))}
-            </p>
-
-            <span class="view-details">
-              ${esc(t("View details ↗", "వివరాలు చూడండి ↗"))}
-            </span>
-
-          </article>
-        `;
-      }).join("")
+      </article>
+    `).join("")
     : `
       <div class="empty-results">
         ${esc(t(
@@ -218,9 +189,20 @@ function renderProducts() {
         ))}
       </div>
     `;
+
+  $("productGrid")
+    .querySelectorAll("[data-add]")
+    .forEach(button => {
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        addToCart(button.dataset.add);
+      });
+    });
 }
 
-/* PRODUCT SHARING */
+/* =========================================================
+   PRODUCT SHARING
+   ========================================================= */
 
 function productShareUrl(product) {
   const url = new URL(window.location.href);
@@ -236,7 +218,6 @@ ${productShareUrl(product)}`;
 
 async function shareActiveProduct() {
   const product = products.find(p => p.id === activeProductId);
-
   if (!product) return;
 
   const url = productShareUrl(product);
@@ -247,11 +228,7 @@ Raghavendra Kirana & General Store`;
 
   if (navigator.share) {
     try {
-      await navigator.share({
-        title,
-        text,
-        url
-      });
+      await navigator.share({ title, text, url });
     } catch (error) {
       if (error && error.name !== "AbortError") {
         try {
@@ -299,12 +276,9 @@ async function copyProductLink(url) {
   field.select();
 
   const copied = document.execCommand("copy");
-
   field.remove();
 
-  if (!copied) {
-    throw new Error("Copy failed");
-  }
+  if (!copied) throw new Error("Copy failed");
 
   toast(t(
     "Product link copied. Share it anywhere!",
@@ -312,74 +286,68 @@ async function copyProductLink(url) {
   ));
 }
 
-/* PRODUCT DETAILS */
+/* =========================================================
+   PRODUCT DETAILS
+   ========================================================= */
 
-function renderDetails(product) {
-  activeProductId = product.id;
+function renderDetails(p) {
+  activeProductId = p.id;
 
-  $("detailMainImage").src = product.image_url || "";
-  $("detailMainImage").alt = product.name;
+  $("detailMainImage").src = p.image_url || "";
+  $("detailMainImage").alt = p.name;
 
-  $("detailEyebrow").textContent = categoryName(product);
-  $("detailName").textContent = product.name;
-  $("detailDescription").textContent = product.description || "";
-  $("detailPrice").textContent = money(product.price);
+  $("detailEyebrow").textContent = categoryName(p);
+  $("detailName").textContent = p.name;
+  $("detailDescription").textContent = p.description || "";
+  $("detailPrice").textContent = money(p.price);
 
   $("detailStock").textContent =
-    Number(product.stock_quantity) > 0
+    Number(p.stock_quantity) > 0
       ? t(
-          `Available stock: ${product.stock_quantity}`,
-          `అందుబాటులో ఉన్న స్టాక్: ${product.stock_quantity}`
+          `Available stock: ${p.stock_quantity}`,
+          `అందుబాటులో ఉన్న స్టాక్: ${p.stock_quantity}`
         )
       : t("Out of stock", "స్టాక్ లేదు");
 
   $("detailAddLabel").textContent =
-    `${t("Add to Bag", "బ్యాగ్‌లో జోడించండి")} · ${money(product.price)}`;
+    `${t("Add to Bag", "బ్యాగ్‌లో జోడించండి")} · ${money(p.price)}`;
 
   $("detailAddToBag").disabled =
-    Number(product.stock_quantity) <= 0;
+    Number(p.stock_quantity) <= 0;
 
   $("detailSpecifications").innerHTML = `
     <div>
       <span>${esc(t("Category", "వర్గం"))}</span>
-      <strong>${esc(categoryName(product))}</strong>
+      <strong>${esc(categoryName(p))}</strong>
     </div>
 
     <div>
       <span>${esc(t("Price", "ధర"))}</span>
-      <strong>${money(product.price)}</strong>
+      <strong>${money(p.price)}</strong>
     </div>
 
     <div>
       <span>${esc(t("Available stock", "అందుబాటులో ఉన్న స్టాక్"))}</span>
-      <strong>${Number(product.stock_quantity)}</strong>
+      <strong>${Number(p.stock_quantity)}</strong>
     </div>
   `;
 
-  $("detailThumbnails").innerHTML = product.image_url
+  $("detailThumbnails").innerHTML = p.image_url
     ? `
-      <button
-        type="button"
-        class="selected"
-        data-image="${esc(product.image_url)}"
-      >
-        <img
-          src="${esc(product.image_url)}"
-          alt="${esc(product.name)}"
-        >
+      <button type="button" class="selected"
+        data-image="${esc(p.image_url)}">
+        <img src="${esc(p.image_url)}" alt="${esc(p.name)}">
       </button>
     `
     : "";
 }
 
 function openProduct(id, push = true) {
-  const product = products.find(x => x.id === id);
-
-  if (!product) return;
+  const p = products.find(x => x.id === id);
+  if (!p) return;
 
   closeCart();
-
-  renderDetails(product);
+  renderDetails(p);
 
   $("homePage").hidden = true;
   $("productDetails").hidden = false;
@@ -392,24 +360,16 @@ function openProduct(id, push = true) {
     );
   }
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function backToShop(push = true) {
   $("productDetails").hidden = true;
   $("homePage").hidden = false;
-
   activeProductId = null;
 
   if (push) {
-    history.pushState(
-      { page: "home" },
-      "",
-      "#shop"
-    );
+    history.pushState({ page: "home" }, "", "#shop");
   }
 
   requestAnimationFrame(() => {
@@ -420,45 +380,15 @@ function backToShop(push = true) {
   });
 }
 
-/* PRODUCT GRID EVENTS */
+/* =========================================================
+   PRODUCT EVENT LISTENERS
+   ========================================================= */
 
 $("productGrid").addEventListener("click", event => {
+  if (event.target.closest("[data-add]")) return;
 
-  /* Read more / Read less */
-  const toggle = event.target.closest("[data-description-toggle]");
-
-  if (toggle) {
-    event.stopPropagation();
-
-    const card = toggle.closest(".product-card");
-    const description = card.querySelector(".product-card-description");
-
-    const expanded = description.classList.toggle("expanded");
-
-    toggle.textContent = expanded
-      ? t("Read less", "తక్కువ చదవండి")
-      : t("Read more", "మరింత చదవండి");
-
-    toggle.setAttribute("aria-expanded", String(expanded));
-
-    return;
-  }
-
-  /* Add to bag */
-  const addButton = event.target.closest("[data-add]");
-
-  if (addButton) {
-    event.stopPropagation();
-    addToCart(addButton.dataset.add);
-    return;
-  }
-
-  /* Open product details */
   const card = event.target.closest("[data-product]");
-
-  if (card) {
-    openProduct(card.dataset.product);
-  }
+  if (card) openProduct(card.dataset.product);
 });
 
 $("productGrid").addEventListener("keydown", event => {
@@ -466,7 +396,6 @@ $("productGrid").addEventListener("keydown", event => {
 
   if (
     card &&
-    event.target === card &&
     (event.key === "Enter" || event.key === " ")
   ) {
     event.preventDefault();
@@ -478,31 +407,30 @@ $("backToShop").addEventListener("click", () => backToShop());
 
 $("detailThumbnails").addEventListener("click", event => {
   const button = event.target.closest("[data-image]");
-
   if (!button) return;
 
   $("detailMainImage").src = button.dataset.image;
 
   $("detailThumbnails")
     .querySelectorAll("button")
-    .forEach(item => item.classList.remove("selected"));
+    .forEach(b => b.classList.remove("selected"));
 
   button.classList.add("selected");
 });
 
-/* SHOPPING CART */
+/* =========================================================
+   SHOPPING BAG
+   ========================================================= */
 
 function addToCart(id) {
-  const product = products.find(x => x.id === id);
+  const p = products.find(x => x.id === id);
+  if (!p) return;
 
-  if (!product) return;
-
-  if ((cart[id] || 0) >= Number(product.stock_quantity || 0)) {
+  if ((cart[id] || 0) >= Number(p.stock_quantity || 0)) {
     toast(t(
       "Available stock limit reached.",
       "అందుబాటులో ఉన్న స్టాక్ పరిమితి చేరుకుంది."
     ));
-
     return;
   }
 
@@ -517,15 +445,14 @@ function addToCart(id) {
 }
 
 function changeQty(id, delta) {
-  const product = products.find(x => x.id === id);
-
-  if (!product) return;
+  const p = products.find(x => x.id === id);
+  if (!p) return;
 
   const next = (cart[id] || 0) + delta;
 
   if (next <= 0) {
     delete cart[id];
-  } else if (next <= Number(product.stock_quantity || 0)) {
+  } else if (next <= Number(p.stock_quantity || 0)) {
     cart[id] = next;
   } else {
     toast(t(
@@ -544,7 +471,10 @@ $("detailAddToBag").addEventListener("click", () => {
   }
 });
 
-$("shareProductButton").addEventListener("click", shareActiveProduct);
+$("shareProductButton").addEventListener(
+  "click",
+  shareActiveProduct
+);
 
 function renderCart() {
   const entries = Object.entries(cart);
@@ -555,13 +485,9 @@ function renderCart() {
   );
 
   const subtotal = entries.reduce((sum, [id, quantity]) => {
-    const product = products.find(x => x.id === id);
+    const p = products.find(x => x.id === id);
 
-    return sum + (
-      product
-        ? Number(product.price) * quantity
-        : 0
-    );
+    return sum + (p ? Number(p.price) * quantity : 0);
   }, 0);
 
   $("cartCount").textContent = count;
@@ -570,46 +496,39 @@ function renderCart() {
 
   $("cartItems").innerHTML = entries.length
     ? entries.map(([id, quantity]) => {
-        const product = products.find(x => x.id === id);
-
-        if (!product) return "";
+        const p = products.find(x => x.id === id);
+        if (!p) return "";
 
         return `
           <div class="cart-row">
             <div>
-              <h3>${esc(product.name)}</h3>
+              <h3>${esc(p.name)}</h3>
               <small>
-                ${money(product.price)} × ${quantity}
-                = ${money(Number(product.price) * quantity)}
+                ${money(p.price)} × ${quantity}
+                = ${money(Number(p.price) * quantity)}
               </small>
             </div>
 
             <div class="quantity-control">
-              <button
-                type="button"
+              <button type="button"
                 data-qty="${esc(id)}"
-                data-delta="-1"
-              >−</button>
+                data-delta="-1">−</button>
 
               <span>${quantity}</span>
 
-              <button
-                type="button"
+              <button type="button"
                 data-qty="${esc(id)}"
-                data-delta="1"
-              >+</button>
+                data-delta="1">+</button>
             </div>
           </div>
         `;
       }).join("") +
-      `
-        <p class="product-meta">
-          ${esc(t(
-            "Delivery charges will be calculated separately.",
-            "డెలివరీ ఛార్జీలు విడిగా లెక్కించబడతాయి."
-          ))}
-        </p>
-      `
+      `<p class="product-meta">
+        ${esc(t(
+          "Delivery charges will be calculated separately.",
+          "డెలివరీ ఛార్జీలు విడిగా లెక్కించబడతాయి."
+        ))}
+      </p>`
     : `
       <div class="cart-empty">
         ${esc(t("Your bag is empty.", "మీ బ్యాగ్ ఖాళీగా ఉంది."))}
@@ -631,7 +550,6 @@ function renderCart() {
 function openCart() {
   $("cartDrawer").classList.add("open");
   $("cartBackdrop").classList.add("open");
-
   $("cartDrawer").setAttribute("aria-hidden", "false");
 
   document.body.classList.add("no-scroll");
@@ -640,33 +558,30 @@ function openCart() {
 function closeCart() {
   $("cartDrawer").classList.remove("open");
   $("cartBackdrop").classList.remove("open");
-
   $("cartDrawer").setAttribute("aria-hidden", "true");
 
   document.body.classList.remove("no-scroll");
 }
 
-/* WHATSAPP CHECKOUT */
+/* =========================================================
+   WHATSAPP CHECKOUT
+   ========================================================= */
 
 function orderMessage() {
   const entries = Object.entries(cart);
 
   const lines = entries.map(([id, quantity]) => {
-    const product = products.find(x => x.id === id);
+    const p = products.find(x => x.id === id);
 
-    return product
-      ? `• ${product.name} × ${quantity} = ${money(Number(product.price) * quantity)}`
+    return p
+      ? `• ${p.name} × ${quantity} = ${money(Number(p.price) * quantity)}`
       : "";
   }).filter(Boolean);
 
   const total = entries.reduce((sum, [id, quantity]) => {
-    const product = products.find(x => x.id === id);
+    const p = products.find(x => x.id === id);
 
-    return sum + (
-      product
-        ? Number(product.price) * quantity
-        : 0
-    );
+    return sum + (p ? Number(p.price) * quantity : 0);
   }, 0);
 
   return `Hello Raghavendra Kirana & General Store,
@@ -698,7 +613,6 @@ function checkout() {
       "Please verify the shop WhatsApp number.",
       "షాప్ వాట్సాప్ నంబర్‌ను తనిఖీ చేయండి."
     ));
-
     return;
   }
 
@@ -715,7 +629,9 @@ function checkout() {
   }
 }
 
-/* NOTIFICATIONS */
+/* =========================================================
+   TOAST
+   ========================================================= */
 
 let toastTimer;
 
@@ -730,77 +646,106 @@ function toast(message) {
   }, 2600);
 }
 
-/* LOAD PRODUCTS FROM SUPABASE */
+/* =========================================================
+   SUPABASE DIAGNOSTIC + CATALOGUE LOADING
+   ========================================================= */
+
+function displaySupabaseError(title, error) {
+  console.error(title, error);
+
+  const details = [
+    error?.message || "Unknown error",
+    `Code: ${error?.code || "Unknown"}`,
+    `Details: ${error?.details || "None"}`,
+    `Hint: ${error?.hint || "None"}`
+  ];
+
+  $("catalogueStatus").textContent =
+    `${title}: ${details.join(" | ")}`;
+
+  $("productGrid").innerHTML = "";
+}
 
 async function loadCatalogue() {
-  $("catalogueStatus").textContent = t(
-    "Loading products…",
-    "ఉత్పత్తులు లోడ్ అవుతున్నాయి…"
-  );
+  $("catalogueStatus").textContent =
+    "Checking Supabase connection...";
 
-  const [catRes, prodRes] = await Promise.all([
-    db
+  try {
+    // Test categories independently.
+    const catRes = await db
       .from("categories")
       .select("id,name")
-      .order("name"),
+      .order("name");
 
-    db
+    console.log("CATEGORY RESULT:", catRes);
+
+    // Test products independently, without joining categories.
+    const prodRes = await db
       .from("products")
-      .select(`
-        id,
-        name,
-        description,
-        price,
-        stock_quantity,
-        image_url,
-        category_id,
-        is_active,
-        categories(name)
-      `)
+      .select(
+        "id,name,description,price,stock_quantity,image_url,category_id,is_active"
+      )
       .eq("is_active", true)
-      .gt("stock_quantity", 0)
-      .order("created_at", { ascending: false })
-  ]);
+      .gt("stock_quantity", 0);
 
-  if (catRes.error) {
-    console.error("Category query failed:", catRes.error);
-  }
+    console.log("PRODUCT RESULT:", prodRes);
 
-  categories = catRes.data || [];
-
-  if (prodRes.error) {
-    console.error("Product query failed:", prodRes.error);
-
-    $("catalogueStatus").textContent = t(
-      "We couldn't load products. Please refresh or try again later.",
-      "ఉత్పత్తులను లోడ్ చేయలేకపోయాం. రిఫ్రెష్ చేసి మళ్లీ ప్రయత్నించండి."
-    );
-
-    $("productGrid").innerHTML = "";
-
-    return;
-  }
-
-  products = prodRes.data || [];
-
-  $("catalogueStatus").textContent = products.length
-    ? ""
-    : t(
-        "Our catalogue is being updated. Please check back soon.",
-        "మా ఉత్పత్తుల జాబితా నవీకరించబడుతోంది. త్వరలో మళ్లీ చూడండి."
+    // Category failure is reported separately.
+    if (catRes.error) {
+      displaySupabaseError(
+        "CATEGORY QUERY FAILED",
+        catRes.error
       );
+    }
 
-  renderCategories();
-  renderProducts();
+    // Product query is the essential catalogue query.
+    if (prodRes.error) {
+      displaySupabaseError(
+        "PRODUCT QUERY FAILED",
+        prodRes.error
+      );
+      return;
+    }
 
-  const match = location.hash.match(/^#product-(.+)$/);
+    // Save successful results.
+    categories = catRes.data || [];
+    products = prodRes.data || [];
 
-  if (match && products.some(p => p.id === match[1])) {
-    openProduct(match[1], false);
+    // Continue rendering even if category loading failed.
+    if (catRes.error) {
+      categories = [];
+    }
+
+    $("catalogueStatus").textContent =
+      `Connection successful! ${products.length} products loaded.` +
+      (catRes.error ? " Categories could not be loaded." : "");
+
+    renderCategories();
+    renderProducts();
+
+    // Restore a shared product link if present.
+    const match = location.hash.match(/^#product-(.+)$/);
+
+    if (match && products.some(p => p.id === match[1])) {
+      openProduct(match[1], false);
+    }
+
+    console.log("CATALOGUE LOADED:", {
+      categories: categories.length,
+      products: products.length
+    });
+
+  } catch (error) {
+    displaySupabaseError(
+      "CONNECTION FAILED",
+      error
+    );
   }
 }
 
-/* HEADER EVENTS */
+/* =========================================================
+   GLOBAL EVENT LISTENERS
+   ========================================================= */
 
 $("languageToggle").addEventListener("click", () => {
   language = language === "en" ? "te" : "en";
@@ -811,14 +756,12 @@ $("searchInput").addEventListener("input", renderProducts);
 
 $("cartTrigger").addEventListener("click", openCart);
 $("closeCart").addEventListener("click", closeCart);
-
 $("cartBackdrop").addEventListener("click", closeCart);
 
 $("checkoutButton").addEventListener("click", checkout);
 
 $("clearCart").addEventListener("click", () => {
   cart = {};
-
   renderCart();
 
   toast(t(
@@ -837,7 +780,9 @@ window.addEventListener("popstate", () => {
   }
 });
 
-/* INITIALISE */
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
 
 $("year").textContent = new Date().getFullYear();
 
