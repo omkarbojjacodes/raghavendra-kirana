@@ -719,3 +719,125 @@ $("year").textContent = new Date().getFullYear();
 
 renderLanguage();
 loadCatalogue();
+
+/* ================================================
+   SURREAL INTERACTION ENGINE
+================================================ */
+
+const surrealMotionSupported =
+  "IntersectionObserver" in window;
+
+let motionObserver = null;
+
+if (surrealMotionSupported) {
+  motionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        entry.target.classList.remove("is-hidden");
+        motionObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: "0px 0px -35px 0px"
+  });
+}
+
+function activateSurrealCards() {
+  const cards = document.querySelectorAll(".product-card");
+
+  cards.forEach((card, index) => {
+    if (card.dataset.motionReady) return;
+
+    card.dataset.motionReady = "true";
+
+    if (!surrealMotionSupported) {
+      card.classList.add("is-visible");
+      return;
+    }
+
+    card.classList.add("is-hidden");
+    motionObserver.observe(card);
+  });
+}
+
+/* POINTER-BASED 3D PERSPECTIVE */
+
+const productGrid = $("productGrid");
+
+productGrid.addEventListener("pointermove", event => {
+  if (!window.matchMedia(
+    "(hover: hover) and (pointer: fine)"
+  ).matches) {
+    return;
+  }
+
+  const card = event.target.closest(".product-card");
+
+  if (!card) return;
+
+  const rect = card.getBoundingClientRect();
+
+  const x = (event.clientX - rect.left) / rect.width;
+  const y = (event.clientY - rect.top) / rect.height;
+
+  const rotateY = (x - 0.5) * 7;
+  const rotateX = (0.5 - y) * 7;
+
+  card.style.setProperty("--pointer-x", `${x * 100}%`);
+  card.style.setProperty("--pointer-y", `${y * 100}%`);
+
+  card.style.setProperty(
+    "--card-rotate-x",
+    `${rotateX}deg`
+  );
+
+  card.style.setProperty(
+    "--card-rotate-y",
+    `${rotateY}deg`
+  );
+});
+
+/* RESET CARD PERSPECTIVE */
+
+productGrid.addEventListener("pointerout", event => {
+  const card = event.target.closest(".product-card");
+
+  if (!card || card.contains(event.relatedTarget)) return;
+
+  card.style.setProperty("--card-rotate-x", "0deg");
+  card.style.setProperty("--card-rotate-y", "0deg");
+  card.style.setProperty("--pointer-x", "50%");
+  card.style.setProperty("--pointer-y", "50%");
+});
+
+/* RESET WHEN POINTER LEAVES THE GRID */
+
+productGrid.addEventListener("pointerleave", () => {
+  productGrid.querySelectorAll(".product-card").forEach(card => {
+    card.style.setProperty("--card-rotate-x", "0deg");
+    card.style.setProperty("--card-rotate-y", "0deg");
+    card.style.setProperty("--pointer-x", "50%");
+    card.style.setProperty("--pointer-y", "50%");
+  });
+});
+
+/* REACTIVATE AFTER EVERY PRODUCT RENDER */
+
+const originalRenderProducts = renderProducts;
+
+renderProducts = function () {
+  originalRenderProducts();
+  activateSurrealCards();
+};
+
+/* INITIAL CARD ACTIVATION */
+
+activateSurrealCards();
+
+/* ACCESSIBILITY: DISABLE 3D POINTER EFFECT ON TOUCH DEVICES */
+
+if (window.matchMedia("(hover: none)").matches) {
+  productGrid.classList.add("touch-device");
+}
